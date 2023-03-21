@@ -5,30 +5,32 @@
 - Antonio Povedano Ortiz (<a href=https://github.com/AntonioPove> AntonioPove</a>)
 
 ## Propuesta
-Esta práctica consiste en implementar un pequeño juego en el que controlaremos a Teseo, el cual tendrá que escpar del laberinto evitando a los minotauros que habitan en este. En el juego se implementará inteligebcia artificial tanto en los minotauros como en el propio
+Esta práctica consiste en implementar un pequeño juego en el que controlaremos al vizconde, el cual se podrá mover por un pequeño teatro intentando salvar a la cantanate cuando esta sea secuestrada por el fantasma, además otras muchas más acciones que pueden ser realizadas por los diferentes personajes del juego.
 El enunciado de esta práctica se encuentra en:
-https://narratech.com/es/inteligencia-artificial-para-videojuegos/navegacion/el-secreto-del-laberinto/
+https://narratech.com/es/inteligencia-artificial-para-videojuegos/decision/historias-de-fantasmas/
 
-El avatar del jugador será **Teseo** el cual podremos controlar con las teclas WASD y con el click izquierdo del botón. Su objetivo es llegar a la plataforma de salida del laberinto. Además, cuando este activo el hilo de Ariadna, Teseo se moverá automaticamente, por la ruta más corta, a la casilla de salida.
+El avatar del jugador será el **vizconde** el cual podremos controlar con el click izquierdo del ratón. Su objetivo será rescatar a la cantante si esta es encarcelada por el fantasma en algún momento. Además podrá arreglar la lámpara si alguna vez esta ha sido tirada por el fantasma.
 
-Los **minotauros**, cuyo número puede ser variado en la pantalla del menú del juego, estarán merodeando por el laberinto hasta que tengan a Teseo a la vista o se encuentren cerca de él.
+El **fantasma** alternará entre acciones, entre las que se encuentrar el tirar la lámpara secuestrar a la cantante, encarcelarla, cerrar la rejas, etc.
 
-Además podremos reiniciar el juego a partir de la tecla 'R', cambiar el número de FPS del juego a través de la tecla 'F' y 'C' patra cambiar la heurísca para cambiarr la
-forma de estimado para calcular las rutas posibles.
+La **cantante** alternara entre acciones al igual que el fantasma, entre estas acciones encontramos la de cantar en el escenario merodear por el mapa de manera "desorientada" y dejarse coger por diferentes personajes.
 
+El **público** se encuentra justo delante del escenerio. Si en algún momento las lámparas se caen, todos los espectadores huirán fuera del teatro hasta que la lámpara vuelva ser colocada.
 
+Además podremos cambiar la vista de la cámara a partir de los números 1, 2, 3 o 4, golpear a partir del espacio, usar Q para capturar a la cantante  y la E para interactuar con el elementos del escenario (palancas).
 
 ## Punto de partida
 Se parte de un proyecto base de Unity proporcionado por el profesor aquí:
-https://github.com/Narratech/IAV-Navegacion/
+https://github.com/Narratech/IAV-Decision
 
 El prototipo que se nos da consta de una plantilla donde encontramos:
 
 -Una escena de Unity, que contiene:
-    - Un menú en el que se puede inicilizar el tamaño del laberinto y el número de minotauros del juego.
-    - El personaje del jugador el cual se puede controlar tanto con teclado como con ratón.
-    - Un laberinto el cual contiene una casilla inicial la cual será donde se encuentre el jugador al iniciar el juego, y una casilla de salida para poder ganar el juego.
-    - Una interfaz de usuario con los atajos rápidos del juego asi como datos para conocer el funcionamiento y rendimiento de este.
+    - Un mapa de juego formado por diferentes habitaciones y caminos.
+    - Diferenetes elementos con los que interactuar a través del personaje (barca, palancas, etc.).
+    - El personaje del jugador que se puede controlar a través del ratón.
+    - Un público que se encuentra delante del escenario.
+    - La cantante, fantasma y piano aún sin ningún tipo de función.
 
 
 Los scripts que se nos proporcionan en dicho proyecto son varios y de diversa índole (muchos de estos scripts han sido ya utilizados en la práctica 1 de esta asignatura, https://github.com/IAV23-G04/IAV23-G04-P1):
@@ -41,6 +43,47 @@ Los scripts que se nos proporcionan en dicho proyecto son varios y de diversa í
  Tenemos como otr pilar del proyecto los scripts de Graphs, encargadados tanto de la generación del mapa, como del cálculo de costes, su visualización...
 
 Los dos primeros scripts son simples y su función principal es almacenar y comparar información sobre el mapa donde se calcularán las rutas.
+
+Los siguientes scripts están relacionados con el funcionamiento de las acciones y movimiento del personaje del fantasma, además de accines realicionadas con la lámpara, cantante y bizconde:
+
+**CantanteCondition**
+    Script que hereda de conditional, encargado de comprobar si la acción de la cantante, en este caso que se encuentre cantando, se haya realizado de manera correcta o por si el contrario esta acción ha sido un fallo.
+
+**CapturadaCondition**
+    Script que hereda de conditional, encargado de comprobar si la acción de capturar a la cantante ha sido realizada con éxito o no. Además es el encargado de realizar esta misma acción.
+
+**GhostArreglaPianoAction**  
+    Script que hereda de action, se encarga de realizar la acción de arreglar el piano y devuelve si esta acción se esta realizando o no.
+
+**GhostChaseAction**
+    Script que hereda de action, se encarga de hacer que el personaje del fantasma siga a la cantante para poder capturarla. Además devuelve si esta acción se está realizando o no. 
+
+**GhostCloseDoorAction**
+    Script que hereda de action, encargado de cambiar la posicion de la puerta (cerrarla y abrirla), cuando el personaje del fantasma interactue con esta.
+
+**GhostLlevarCantante**
+    Script que hereda de action, encargado de hacer que el fantasma capture a la cantante. Comprueba la posición de ambos para ver si la acción puede ser realizada o no, y hace que la cantante se mueva a la misma vez que el fantasma. 
+
+**GhostReturnAction**
+    Script que hereda de action, encargado de hacer que el fantasma vuelva a la sala de música y devuelve si la aciión ha sido completada con éxito.
+
+**GhostSearchRandomAction**
+    Script que hereda de action, encargado de hacer que el fantasma vuelva se mueva a salas aleatorias del mapa a partir de la asignación de GameBlackBoard, y cuando el fantasma esté en esta nueva ubicación devolverá si la acción ha sido realizada con éxito.
+
+**GhostSearchStageAction**
+    Script que hereda de action, encargado de hacer que el fantasma vaya al escenario y devolverá si la acción ha sido realizada con éxito.
+
+**ImprisonedCondition**
+    Script que hereda de conditional, encargado de comprobar si la acción de la cantante, en este caso que se encuentre encarcelada, se haya realizado de manera correcta o por si el contrario esta acción ha sido un fallo.
+
+**PianoCondition**
+    Script que hereda de conditional, encargado de comprobar si el piano está siendo tocado por el fantasma o no.
+
+**PublicoCondition**
+    Script que hereda de conditional, encargado de comprobar ambas partes del público (este y oeste) y de comprobar las acciones que estos están realizando.
+
+**VizcondeChocaCondition**
+    Script que hereda de conditional, encargado de comprobar las acciones del vizconde cuando la cantante se encuentra en el palco.
 
 **Vertex**
     Script simple que guarda un punto de la ruta. Su id y su coste conforman la información que posee. Permite comparar con objetos y otros vértices así como comparalos para ver cual posee un coste menor.
@@ -159,158 +202,6 @@ Tenemos la estrcutura base del proyecto como en la práctica anterior pero con m
 Lo que vamos a realizar para resolver esta práctica es implementar los diferentes comportamientos explicados anteriormente para los diferentes elementos del juego.
 Para los algoritmos que implementaremos nos basaremos en los pseudocódigo de Millington.
 
-El pseudocódigo del algoritmo para calcular los caminos más obtimo, utilizaaremos el algoritmo A*:
-```
-   function pathfindaAStar(graph: Graph,
-                        start: Node,
-                        end: Node,
-                        heuristic: Heuristic
-                        ) -> Connection[]:
-
-    # This structure is used to keep track of the
-    # information we need for each node.
-    class NodeRecord:
-        node: Node
-        connection: Connection
-        costSoFar: float
-        estimatedTotalCost: float
-
-    # Initialize the record for the start node.
-    startRecord = new NodeRecord( )
-    startRecord.node = start
-    startRecord.connection = null
-    startRecord.costSoFar = 0
-    startRecord.estimatedTotalCost = heuristic.estimate(start)
-
-    # Initialize the open and closed lists.
-    open = new PathfindingList()
-    open += startkecord
-    closed = new PathfindingList()
-
-    # Iterate through processing each node.
-    while length(open) > 0:
-        # Find the smallest element in the open list (using the
-        # estimatedTotalCost). 
-        current = open. smallestElement()
-
-        # If it ts the goal node, then terminate.
-        if current.node == goal:
-            break
-
-        # Otherwise get Lts outgoing connections.
-        connections = graph.getConnections( current)
-
-        # Loop through each connection in turn.
-        for connection tn connections:
-            # Get the cost estimate for the end node.
-            endNode = connection. getToNode()
-            endNodeCost = current.costSoFar + connection.getCost()
-
-            # If the node is closed we may have to skip, or remove Lt
-            # from the closed list.
-
-            if closed.contains(endNode):
-                # Here we find the record in the closed list
-                # corresponding to the endNode.
-                endNodeRecord = closed.find(endNode)
-
-                # If we didn't find a shorter route, skip.
-                if endNodeRecord.costSoFar <= endNodeCost:
-                    continue
-
-                # Otherwise remove it from the closed list.
-                closed -= endNodeRecord
-
-                # We can use the node's old cost values to calculate
-                # its heuristic without calling the possibly expensive
-                # heuristic function.
-                endNodeHeuristic = endNodeRecord.estimatedTotalCost -
-                                    endNodeRecord.costSoFar
-
-            # Skip if the node is open and we've not found a better
-            # route.
-
-            else if open.contains(endNode):
-                # Here we find the record in the open list
-                # corresponding to the endNode.
-
-                endNodeRecord = open.find(endNode)
-                # If our route is no better, then skip.
-                if endNodeRecord.costSoFar <= endNodeCost:
-                    continue
-
-                # Again, we can calculate its heuristic.
-                endNodeHeuristic = endNodeRecord.cost -
-                               endNodeRecord.costSoFar
-
-            # Otherwise we know we've got an unvisited node, so make a
-            # record for it.
-            else:
-                endNodeRecord = new NodeRecord()
-                endNodeRecord.node = endNode
-
-                # We'll need to calculate the heurístic value using
-                # the function, since we don't have an existing record
-                # to use.
-                endNodeHeuristic = heuristic.estimate(endNode)
-
-            # We're here if we need to update the node. Update the
-            # cost, estimate and connection.
-            endNodeRecord.cost = endNodeCost
-            endNodeRecord.connection = connection   
-            endNodeRecord.estimatedTotalCost = endNodeCost +
-                        endNodeHeurístic
-
-            # And add it to the open List.
-            If not open.contains(endiode):
-                open += endNodeRecord
-
-        # We've finished Looking at the connections for the current
-        # node, so add it to the closed List and remove it from the
-        # open List.
-        open -= current
-        closed += current
-
-    # We're here Lf we've etther found the goal, or Lf we've no more
-    # nodes to search, find mich,
-    if current.node != goal:
-        # We've run out of nodes without finding the goal, so there's
-        #  no solution.
-        return null
-    else:
-        # Compile the List of connections in the path.
-        path = []
-
-        # Work back along the path, accumulating connections,
-        while current.node != start:
-            path += current.connection
-            current = current.connectton.getFromNode()
-
-        # Reverse the path, and return tt.
-        return reverse(path)
-```
-El pseudocódigo del algoritmo de Smooth es:
-
-```
-    Smooth(inputPath: Vertex List) -> Vertex List:
-    result = new Vertex List
-
-    result.add(inputPath[0])
-    inpuxIndex = 2
-
-    from = result[-1].position
-    to = inputPath[inpuxIndex].position
-    direction = (to - from).normalize()
-    distancie = distancie_between_vertex(from, to)
-    raycast_hit = ThrowRay(from, direction, distanci3, ~LayerMask.NameToLayer("Ground"))
-    
-    if(raycast_hit && raycast_hit.collider.gameObject.layer != LayerMask.NameToLayer("Ground"))
-        result.add(inputPath[inpuxIndex - 1])
-        
-    inpuxIndex++
-    result.add(inputPath[-1])
-    return result
-```
 El pseudocódigo del algoritmo de seguimiento es:
 
 ```
@@ -362,36 +253,13 @@ function getSteering() -> KinematicSteer ingOutput:
     return result
 ```
 
-El diagrama para el jugador sería:
-
-```mermaid
-stateDiagram
-    [*] --> Menu
-    Menu --> CambiarMapa
-    Menu --> NúmeroMinotauros
-    Menu --> JugarJuego 
-    
-    InputUsuario --> MoversePorElMapa
-    MoversePorElMapa --> HiloAriadna
-    MoversePorElMapa --> LlegarCasillaSalida
-    HiloAriadna --> LlegarCasillaSalida
-    
-    RecargarNivel --> InicioDelJuego
-```
-
-Estos diagramas pueden ser modificados a posteriori en caso de necesitar alguna actualización o que añadamos un comportamiento extra.
-
 ## Pruebas y métricas
 
 Aquí se podrán los diferentes videos de las pruebas y partes del proyecto para ir documentando su funcionalidad:
 
-- https://www.youtube.com/watch?v=m7o5ZoqCEWc&ab_channel=AntonioPovedano
-
 ## Ampliaciones
 
-    - Los minotauros pierden de vista al jugador cuando este se encuentre detrás de un muro.
-    - Mejorados los algoritmos de merodeo y llegada de los minotauros.
-    - Indentificador para saber la posición exacta del jugador.
+    Pondremos las modificaciones externas a la práctica cuando estas sean realizadas
 
 ## Producción
 
@@ -400,19 +268,8 @@ Las tareas se han realizado y el esfuerzo ha sido repartido entre los autores.
 | Estado  |  Tarea  |  Persona  |  
 |:-:|:--|:-:|
 | ✔ | Readme explicacion de clases | Raul |
-| ✔ | Impletación del algoritmo A* | Raul |
-| ✔ | Movimiento por ratón del jugador | Raul |
-| ✔ | Modificación del peso en las casillas cercanas al minotauro | Raul |
-| ✔ | Heurística Heuclídea | Raul |
-| ✔ | Readme propuesta, punto de partida, pseudocodigo | Antonio |
-| ✔ | Implementación del algoritmo Smooth | Antonio |
-| ✔ | Uso correcto del hilo de Ariadna | Antonio |
-| ✔ | Heurística Manhattan | Antonio |
+| ✔ | Readme explicacion de clases del fantasma y propuesta | Antonio |
 | OPCIONAL|
-| ✔ | Puntero del ratón para saber la posición exacta del jugador | Raul |
-| ✔ | Implementación mejorada del merodeo y llegada el minotauro | Antonio |
-| ✔ | Perder de vista al jugador | Antonio |
-
 
 Todo se ha hecho junto ya que residimos en la misma vivienda
 
