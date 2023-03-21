@@ -34,23 +34,93 @@ El prototipo que se nos da consta de una plantilla donde encontramos:
 
 
 Los scripts que se nos proporcionan en dicho proyecto son varios y de diversa índole (muchos de estos scripts han sido ya utilizados en la práctica 1 de esta asignatura, https://github.com/IAV23-G04/IAV23-G04-P1):
- 
- **GameManager**
- En primer lugar encontramos el script GameManager que se encarga de controlar el estado del juego y mostrar diversos valores en pantalla. Desde él podemos ajustar el FrameRate, recargar la escena y cambiar el tipo de heurística mostrada. 
- Otro métdodo relevante es el de FindGO() que obtiene los datos relevantes de la escena diferenciando entre menú y laberinto. Por ejemplo el texto de la label en el primero o el avatar en el segundo.
- Como último punto relevante señalar que posee métodos para "generar" la entrada y la salida del laberitno dadas por el GraphGrid del que hablaremos más adelante.
 
- Tenemos como otr pilar del proyecto los scripts de Graphs, encargadados tanto de la generación del mapa, como del cálculo de costes, su visualización...
+El primer grupo de scripts que tenemos que observar son aquellos relacionados con la gestión del mundo y el estado en el que se encuentra; encontramos los siguientes:
 
-Los dos primeros scripts son simples y su función principal es almacenar y comparar información sobre el mapa donde se calcularán las rutas.
+**GameBlackBoard**
+Permite obtener a los demás scripts toda la información del mundo que necesitán. Es una forma de consultor para conocer el estado del mundo en todo momento. Guarda referencia a las habitaciones, el jugador y la cantante, las palancas, etc. 
+Permite obtener una posición aleatoria de una lista dada y consultar si la cantante esta capturada, el fantasma está en el sótano y otras variables relacioandas con la dinámica de la partida.
 
-Los siguientes scripts están relacionados con el funcionamiento de las acciones y movimiento del personaje del fantasma, además de accines realicionadas con la lámpara, cantante y bizconde:
+**SotanosTrigger**
+Gestiona la entrada y salida del fantasma con los sótanos. Tiene referencia al fantasma para saber si es él y al blackboard para comunicar la actualización de estado.
 
-**CantanteCondition**
-    Script que hereda de conditional, encargado de comprobar si la acción de la cantante, en este caso que se encuentre cantando, se haya realizado de manera correcta o por si el contrario esta acción ha sido un fallo.
+Algunos de ellos además de actualizar el estado del mundo también realizan acciones sobre el propio mundo del juego:
 
-**CapturadaCondition**
-    Script que hereda de conditional, encargado de comprobar si la acción de capturar a la cantante ha sido realizada con éxito o no. Además es el encargado de realizar esta misma acción.
+**PalancaPuerta**
+Guarda referencia al BlackBoard anterior y a la puerta correspondiente. Solo interactúa con el fantasma y al ejecutar dicho método abre o cierra la puerta que se encuentra en el mismo gameObject que si mismo.
+
+**Barca**
+Se encarga de desplazar la barca de manera kinemática de un punto a otro. Cuenta con métodos para añadir un pasajero y fijar un origen, como para fijar un destino. Una vez llegado al destino si hay pasajero reactiva el desplazamiento del jugador para que pueda reanudar su ruta.
+
+**BarcaTrigger**
+Es el encargado de controlar el uso de la barca mediante el disparador Trigger. Contiene referencias al jugador, la barca, el fantasma, y el sato; relacionados con este último posee métodos para ajustar los costes de los saltos de navmesh para modificar el coste del camino recorrido por la barca asociada. A su vez cuenta con costes de espera y enfriamiento de la barca para ajustar su uso a elección.
+
+**ControlPalanca**
+Gestiona una palanca. Posee referencia a un candelabro y un público sobre los que tiene influencia. Su método Interact se genera cuando el fantasma desencadena un Trigger con ella. 
+Si el candelabro estaba caído este subirá y se encenderá la luz de nuevo; en caso contrario, caerá y apagará la luz del público objetivo.
+
+**ControlPiano**
+Gestiona el piano. Tiene referencia al fantasma, a los diferentes sonidos que debe reproducir. A su vez cuenta con variables de estado(tocado, roto, tocadoDaOtro) y para definir el númerto de toques actual y máximo.
+Su interacción y reparácion por parte del fantasma se lanza desde otros scripts. Permiten desde reproducir la música del fantasma a reparar el piano y dejarlo en el estado por defecto. 
+Con un evento Trigger se dispara InteractVizconde ya sea el jugador, o la cantante el que interáctue con él, que reproduce un sonido y en caso de alcanzar el máximo número de toques lo rompe. 
+
+Un segundo grupo serían aquellos que sirven para que el mundo dado se muestre adecuadamente, y con el feedback correcto, al jugador:
+
+**FollowClick**
+Dado un offset y un objetivo transporta al portador a la posición del objetivo más el offset de manera continua.
+
+**WayMark**
+Oculta la retóicula al llegar el jugador a laposición de esta.
+
+**CameraManager**
+Encargado de controlar toda la lógica tras las cámaras que tenemos en la escena. Contiene referencias a las 4 cámaras principales: la main, la del fantasma, la cantante y la general. Permite cambiar mediante teclas de cámara activa e inicia la partida con la cámara main activa.
+
+**SiguePersonaje**
+Script que se encarga de seguir a un personaje, en esta práctica es asociado a las cámaras. Guarda referencia al target, obstáculos entre el personaje a seguir y si mismo(se actualzia con el tiempo), y variables técnicas de rotación o ángulo de la orbita.
+Actualiza constantemente que obstáculos debe hacer invisible para poder mantener al personaje en cámara así como la posición y la visión. Por último implementa rotaciones manuales en caso de que el jugador quiera rotar la cámara.
+
+Por último tendríamos el grupo de código más grande que es aquel relacionado con la IA de los diferentes personajes que encontramos en el mundo:
+
+Cuenta con unos pocos scripts auxiliares :
+
+**Agente**
+Visto en las anteriores prácticas. Link arriba para más información.
+
+**Direccion**
+Visto en las anteriores prácticas. Link arriba para más información.
+
+Y aquellos para cada uno de los personajes:
+
+Uno general para cada personaje del público:
+
+**Publico**
+Gestiona una unidad de "publico". Contiene variables para saber si esta sentado y si la luz esta encendida. Tiene métodos para que sepa que se ha apagado o encendido su luz asociada y, por consiguiente, si esta de pié o sentado debido a esta. 
+A tiempo real, gestiona que mire hacia donde se desplaza si la luz esta apagada, y si esta encendida y por tanto atento a la función, mire hacia delante(el escenario).
+
+Dos para el jugador:
+
+**JugadorAgente**
+Hereda de la clase ya vista agente. Cuenta con una referencia al rigidbody sobre el que aplicar fuerza.
+Obtiene una dirección en el Update de los ejes y la ajusta a la velocidad máxima y en el fixedUpdate desplaza el cuerpo, ya sea mediante el rigidBody o de forma kinemática si no lo posee en la velocidad calculada anteriormente.
+**Player**
+Gestiona, en la implementación que se nos proporciona de base, los ataques y la acción de captura del jugador. Contiene referencias a las aréas de ataque, acción y captura; junto a múltiples variables para editar los tiempos de las diferentes partes relacionadas con el ataque.
+Toda su lógica se desarrolla en el Update, cuenta con if que se ejecutan para controlar coldowns y tiempos y otros relacionados con la pulsación de teclas por parte del jugador; entre ellos encontramos la de capturar o la de atacar.
+
+Uno para la cantante:
+
+**Cantante**
+Da el comportamiento lógico a la cantante. Cuenta con múltiples variables para ajustar sus tiempos de canto, de descanso, etc; para ajustar sus rútinas y otros más mecánicos como el campo de visión, la distancia de vista o el objetivo al que observar.
+Cuenta con múltiples métodos para realizar las diferentes acciones que puede realizar como Cantar/TerminarDeCantar, Descansar/TermianrDeDescansar, etc. Con métodos para conocer el estado actual del personaje: ConozcoSitio, EstaEnCelda, EstaCapturada.
+Por último cuenta con métodos para realizar acciones respecto a otros personajes: SeguirAlVizconde, SeguirAlFantasma, MirarAlVizconde, CambiarObjetivo; son algunos de ellos.
+
+Y múltiples para el fantasma, que presenta el comportamiento más complejo, divididos en dos grupos.
+
+Unos que heredan de acción y se encarga de realizar la acción, usando como base el siguiente script.
+
+**Accion**
+Se utiliza para disparar acciones al desencadenar un efecto Trigger entre el fantasma y palancas, el piano o las puertas. Debe equiparse al portador. Usada como base para los siguientes.
+
+Y que se amplía para generar los sigueintes comportamientos:
 
 **GhostArreglaPianoAction**  
     Script que hereda de action, se encarga de realizar la acción de arreglar el piano y devuelve si esta acción se esta realizando o no.
@@ -66,12 +136,36 @@ Los siguientes scripts están relacionados con el funcionamiento de las acciones
 
 **GhostReturnAction**
     Script que hereda de action, encargado de hacer que el fantasma vuelva a la sala de música y devuelve si la aciión ha sido completada con éxito.
-
+    
 **GhostSearchRandomAction**
     Script que hereda de action, encargado de hacer que el fantasma vuelva se mueva a salas aleatorias del mapa a partir de la asignación de GameBlackBoard, y cuando el fantasma esté en esta nueva ubicación devolverá si la acción ha sido realizada con éxito.
 
 **GhostSearchStageAction**
     Script que hereda de action, encargado de hacer que el fantasma vaya al escenario y devolverá si la acción ha sido realizada con éxito.
+ 
+Y aquellos que hacen de condiciones y se usan para comprobar el uso de las acciones anteriormente nombradas:
+
+**CantanteCondition**
+    Script que hereda de conditional, encargado de comprobar si la acción de la cantante, en este caso que se encuentre cantando, se haya realizado de manera correcta o por si el contrario esta acción ha sido un fallo.
+
+**CapturadaCondition**
+    Script que hereda de conditional, encargado de comprobar si la acción de capturar a la cantante ha sido realizada con éxito o no. Además es el encargado de realizar esta misma acción.
+
+**PianoCondition**
+    Script que hereda de conditional, encargado de comprobar si el piano está siendo tocado por el fantasma o no.
+
+**PublicoCondition**
+    Script que hereda de conditional, encargado de comprobar ambas partes del público (este y oeste) y de comprobar las acciones que estos están realizando.
+
+**VizcondeChocaCondition**
+    Script que hereda de conditional, encargado de comprobar las acciones del vizconde cuando la cantante se encuentra en el palco.
+
+**ImprisonedCondition**
+    Script que hereda de conditional, encargado de comprobar si la acción de la cantante, en este caso que se encuentre encarcelada, se haya realizado de manera correcta o por si el contrario esta acción ha sido un fallo.
+
+
+Por último, dentro de esta misma categoría, tenemos una serie de scripts que hacen de condiciones 
+
 
 **ImprisonedCondition**
     Script que hereda de conditional, encargado de comprobar si la acción de la cantante, en este caso que se encuentre encarcelada, se haya realizado de manera correcta o por si el contrario esta acción ha sido un fallo.
@@ -84,118 +178,6 @@ Los siguientes scripts están relacionados con el funcionamiento de las acciones
 
 **VizcondeChocaCondition**
     Script que hereda de conditional, encargado de comprobar las acciones del vizconde cuando la cantante se encuentra en el palco.
-
-**Vertex**
-    Script simple que guarda un punto de la ruta. Su id y su coste conforman la información que posee. Permite comparar con objetos y otros vértices así como comparalos para ver cual posee un coste menor.
-
- **Node**
-    Script simple que es usado para almacenar la información de un nodo. Guarda su vertexID, el anterior a este, el coste hasta ahora y el aproximado. Hay métodos de comparació entre nodos y en resumen su infunción es la de almacenar la información de un punto en el "mapa".
-
-Otro grupo de script importante es el de los Grafos. Contienen el mapa a nivel lógico y lo generan en el espacio de juego.
-
-**Graph**
-    Es una clase abstracta, por lo que su objetivo es ser usada como base para crear grafos sobre ella.
-    Contiene variables que almacenan todos los vértices, sus vértices vecinos, los costes de estos, el tamaño... En definitiva: almacena toda la información del mapa.
-    Contiene un métodos virtuales varios para la gestión de los vértices y sus costes, así como para el mapa:
-        -Load() para cargar los mapas.
-        -UpdateVertexCosts() para actualizar valores de los vértices respecto al mapa.
-        -GetNearestVertex() para obtener el vértice más cercano y GetRandomPos() para obtener ua posición aleatoria del mapa.
-        -GetNeighbourdsCosts() para obtener los costes de los vecinos desde un vértice.
-    A su vez cuenta con métodos para calcular caminos óptimos mediante diferentes algoritmos: BFS, DFS y PathAstar o A*. Para suavizarlos con SMooth() y BuildPath() para reconstruir los caminos realizados.   
-
-**GraphGrid**
-    Es una clase que hereda de Graph y como tal cuenta con las funciones que esta  traía consigo.
-    Sobreescribe el método Load() y usando diferentes prefabs que posee como variables genera un mapa jugable.
-    A su vez en esta función llama a métodos del GameManager para definir la entrada y la salida.
-    Crea el método SetNeighbourds para definir los vecinos de cada uno de los vértices durante el métodod Load().
-    Crea el método WallInstantiate() para generar aquellas zonas donde no hayas vértices navegables, poniendo muros para crear el laberinto, tanto visualmente como de gameplay, deseado.
-    Sobreescribe los métodos GeNearestVertex(), UpdateVertexCost() y GetRandomPos() para que se adapten al mapa establecido.
-
-**TheseusGraph**
-    Es un script encargado de calcular y dibujar el camino óptimo de un punto a otro. Pudiendo usar diferentes heurísticas y algoritmos de búsqueda. De base se da por sentado 2 heurísticas y los 3 algoritmos de búsqueda ya comentados.
-    Como variables base posee unas que debe da rel desarrollador como el tipo de algoritmo con el que se debe calcular, si hay que suavizar la ruta, los tags de los nodos, color de la ruta y el radio del nodo. Y otras que son tomadas del GameObject como la cámara o el lineRender y otras que pueden variar como la heurística en uso.
-    Ariadna es el nombre que se le da al comportamiento donde genera la mejor ruta desde el nodo actual hasta el destino.
-    En el Update podemos cambiar si usamos a Ariadna o no y en caso positivo se calcula dicha ruta y se muestra en el mapa.
-    En el OnDrawGizmos se dibuja  esferas sobre los puntos de la ruta específicados.
-    Posee métodos como GetNextNode(), GetNodeFromScreen() para obtener nodos.
-    ShowPathVertices() recalca el camino calculado y DIbujaHilo() muestra el hilo sobre el amap. Siendo ambos métodos relevantes para la visión.
-
-EL siguiente conjunto de scripts relevantes relacionados con IA es el de los comportamientos Agente usando la msima estructura que los vistos en la práctica anterior.
-De nuevo los scripts bases para esta estructura son dos:
-
-**Agente**
-    Igual al de la práctica anterior, se adjunta comentario:
-    Clase que se encarga de la interacción entre la inteligencia artificial desarrollada y el medio "físico" de la escena mediante el movimiento. Contiene referencias al rigidbody, y variables para ajustar la velocidad, velocidad angular... Todos los componentes necesarios para poder desarrollar adecuadamente los movimientos deseados.
-    A su vez, como apoyo para el Comportamiento Agente guarda variables para identificar si la combinación de acciones se da por peso o prioridad, y métodos como GetPrioridadDireccion llamados en su LateUpdate para la selección de movimiento.
-    Por último, y siguiendo su rol de conexión Comportamiento-Medio tiene métodos auxiliares como LookDirection o OriToVec que ayudan a la hora de obtener direcciones o giros. Métodos que son llamados en Update y FixedUpdate donde se encarga de realziar todas las comprobaciones físicas pertienntes.
-
-**ComportamientoAgente**
-    Igual al de la práctica anterior, se adjunta comentario:
-    Clase abstracta que sirve como plantilla para la creación de los diferentes comportamientos desarrollados. Tiene referencia a un script Agente para poder repercutir en el movimeinto del jugador y tomar los datos que esta proporciona. A su vez cuenta con una referencia común para los diferentes comportamientos como es un Objetivo.
-    Cuenta con métodos para un mayor control de RigidBody y su relación con el mundo de Unity como OriToVector o RadianesAGrados.
-    Además de esto solo cabe recalcar que en su Update hace referencia a la forma de ponderación de que dirección tomar dependiendo de peso, prioridad o simple según haya sido marcado en Agente.
-
-Ambos usan como apoyo la siguiente clase para representar las fuerzas y direcciones:
-
-**Direccion**
-    Igual al de la práctica anterior, se adjunta comentario:
-    script que se utiliza de apoyo para representar la dirección y que en código, sea más sencilla de utilizar.
-
-Otro script alejado de los otros grupos de comportamiento e igual al de la práctica anterior es el de ControlJugador:
-
-**ControlJugador**:
-    Es un comportamiento "especial" ya que no es IA. Si no que se encarga de recoger la entrada de teclado y parsearla para que pueda ser procesado por Agente y ComportamientoAgente de manera correcta. Siendo el juagdor el que toma la decisión de hacia que dirección desplazarse.
-    Lo más relevante de esta clase es que sobreescribe GetDirection para obtener la dirección mediante la entrada de teclado.
-
-Una vez visto estos scripts base hablaremos de los diferentes scripts que implementan multitud de comportamientos.
-
-**LLegada**
-    Su principal función es la de una vez se llegue a una distancia del objetivo se reduzca la fuerza de desplazamiento para poder lograr una llegada a este más pausa y realista en lugar de una instántanea menos realista.
-    Contiene un comportamiento Avoidance() para evitar la colisión con objetos cuando se encuentre muy cerca del objetivo aunque no esta usada.
-
-**Merodear**
-    Su principal función es obtener una dirección aleatoria y desplazarse en ella durante un tiempo determinado. Cuenta con una función de retroceso en caso de colisión con un obstáculo.
-
-Otro conjunto relevante son los relacionados con el minotauro, indpeendientes de agente u otro grupo, que se encargan de gestionar diferentes eventos con los minotauros o generarlos.
-
-**MinoCollision**
-    Script independiente al agente que reinicia el nivel si el minotauro golpea con Teseo.
-
-**MinoEvader**
-    Script independiente al agente que se encarga de en caso de obtener un evento trigger con un objeto y, en caso de que este sea el minotauro, rehacer la ruta.
-
-**MinoManager**
-    Encargado de generar el número de minotauros en el laberinto y con una posición aleatoria dentro del laberinto.
-
-Otro conjunto de scripts de comportamiento son aquellos relacionados directamente con el jugador además del ControlJugador:
-
-**Slow**
-    Se encarga de modificar la velocidad máxima cuando el juagdor se acerce al trigger, al área, del minotauro.
-
-**SeguirCamino**
-    Su función es la de, como su nombre indica, seguir un camino. Dado un T nodo sigueinte se desplaza hacia él y tiene una función para setear el Path del TheseusGraph del que obtiene los nodos entendemos.
-
-**Teseo**
-    Es el que controla la forma en la que se desplaza el jugador que en este caso hace de Teseo. Permite elegir entre seguir el camino de forma automática o desplazamiento por ej jugador. Tiene referencias tanto a SeguirCamino como a ControlJugador para activarlos/desactivarlos.
-
-Estos serían relacionados con la inteligencia artificial y el mapa. Ahora hablaremos de otros scripts auxiliares como los de animación y los extras:
-
-**AnimalAnimationController**
-Encargado de controlar y cambiar el estado de la animación del jugador (está moviendose o esta quieto) dependiendo de la velocidad que tenga este en cada momento. 
-
-**CameraFollow**
-Encargado de que la cámara tenga siempre el jugador en el centro de esta, y también se encarga de las diferentes interacciones que podemos realizar en esta, asi como aplicar un zoom.
-
-**PlayerAnimation**
-Encargado de ajustar la velocidad del jugador para que el animator pueda usarla correctamente.
-
-**BinaryHeap**
-Encargado de implemnetar el montículo binario para poder utilizarlo en la práctica ya que Unity no tiene uno implementado de base.
-
-**DropDown**
-Encargado de pasar y cambiar los datos de creación de escenario (tamaño) y el número de minotauros que se quieren establecer en cada nivel.
-
-Tenemos la estrcutura base del proyecto como en la práctica anterior pero con muchos scripts, los relacionados al comportamiento, incompletos; que deberemos de completar junto a aquellos que añadamos nosotros mismo para lograr lso objetivos propuestos para esta práctica.
 
 ## Diseño de la solución
 
