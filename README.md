@@ -21,9 +21,9 @@ Además podremos cambiar la vista de la cámara a partir de los números 1, 2, 3
 
 Otro punto relevante son las diferentes zonas que encontraremos en el mapa. Siendo el edificio donde se desarrolla la acción otro personaje principal con multitud de zonas y caminos que las conectan. Encontramos principalmente las siguientes:
 
--Patio de butacas: divido en este y oeste, cada parte tiene a su público que reaccionará al fantasma y huirá si cae la lámpara y se apaga la luz de su zona. Esta conectada con el *escenario* y el *vestibulo*. Se puede ver desde los *palcos* pero no a la inversa.
+-**Patio de butacas**: divido en este y oeste, cada parte tiene a su público que reaccionará al fantasma y huirá si cae la lámpara y se apaga la luz de su zona. Esta conectada con el *escenario* y el *vestibulo*. Se puede ver desde los *palcos* pero no a la inversa.
 
--Vestíbulo: Una zona amplia donde se refugia el públic cuando se austa, únicamente conecta con el *patio de butacas*.
+-**Vestíbulo**: Una zona amplia donde se refugia el públic cuando se austa, únicamente conecta con el *patio de butacas*.
 
 -**Escenario**: lugar incial de la *cantante* donde actúa y conectada a *Bambalinas* para los descansos de ella. Una trampilla permite bajar al *sótano oeste* pero no regresar.
 
@@ -52,6 +52,18 @@ Además de estas salas hay que tener en cuenta respecto al mapa una serie de dat
 -Las barcas solo pueden ser ocupadas por una persona, o dos personas si una de las dos lleva la otra al hombro(*fantasma* y *cantante*).
 
 -Los golpes dados a muebles como el piano en la sal de música se escucharán en todas las estancias subterráneas.
+
+
+Además hay que tener en cuenta una serie de comportamientos tanto del propio escenario como de los mismos personajes:
+
+- El público chillará si ve al fantasma sobre escenario.
+- El fantasma no capturará a la cantante si hay público mirando.
+- Si el vizconde toca al fantasma con la chica capturada, este la soltará.
+- Si el vizconde choca con el fantasma hará que retroceda.
+- El vizconde puede arreglar la lámpara interactuando con ella.
+- El fantasma querrá secuestrar a la cantante cuando la oiga cantar.
+- El fantasma abortará cualquier acción que este haciendo si escucha al vizconde tocar su piano.
+- Solo se podrá pasar entre los rios si la barca está en esa parte de la orilla.
 
 ## Punto de partida
 Se parte de un proyecto base de Unity proporcionado por el profesor aquí:
