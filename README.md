@@ -55,6 +55,10 @@ Además de estas salas hay que tener en cuenta respecto al mapa una serie de dat
 
 ```mermaid
 stateDiagram
+    Vestíbulo --> PatioDeButacas
+    PatioDeButacas --> Vestíbulo
+    PatioDeButacas --> Escenario
+    Escenario --> PatioDeButacas
     Escenario --> Bambalinas
     Bambalinas --> Escenario
     Escenario --> SótanoOeste
@@ -70,7 +74,7 @@ stateDiagram
     SótanoEste --> SótanoNorte
     SótanoNorte --> SótanoEste
     SótanoEste --> SalaDeMúsica
-    SalaDeMúscia --> SótanoEste
+    SalaDeMúsica --> SótanoEste
     Celda --> SótanoNorte
     SótanoNorte --> Celda
     SótanoNorte --> SalaDeMúsica
