@@ -9,15 +9,39 @@ Esta práctica consiste en implementar un pequeño juego en el que controlaremos
 El enunciado de esta práctica se encuentra en:
 https://narratech.com/es/inteligencia-artificial-para-videojuegos/decision/historias-de-fantasmas/
 
-El avatar del jugador será el **vizconde** el cual podremos controlar con el click izquierdo del ratón. Su objetivo será rescatar a la cantante si esta es encarcelada por el fantasma en algún momento. Además podrá arreglar la lámpara si alguna vez esta ha sido tirada por el fantasma.
+El avatar del jugador será el **vizconde** el cual podremos controlar con el click izquierdo del ratón. Su objetivo será rescatar a la cantante si esta es encarcelada por el *fantasma* en algún momento. Además podrá arreglar la lámpara si alguna vez esta ha sido tirada por el *fantasma*.
 
 El **fantasma** alternará entre acciones, entre las que se encuentrar el tirar la lámpara secuestrar a la cantante, encarcelarla, cerrar la rejas, etc.
 
-La **cantante** alternara entre acciones al igual que el fantasma, entre estas acciones encontramos la de cantar en el escenario merodear por el mapa de manera "desorientada" y dejarse coger por diferentes personajes.
+La **cantante** alternara entre acciones al igual que el *fantasma*, entre estas acciones encontramos la de cantar en el escenario merodear por el mapa de manera "desorientada" y dejarse coger por diferentes personajes.
 
 El **público** se encuentra justo delante del escenerio. Si en algún momento las lámparas se caen, todos los espectadores huirán fuera del teatro hasta que la lámpara vuelva ser colocada.
 
-Además podremos cambiar la vista de la cámara a partir de los números 1, 2, 3 o 4, golpear a partir del espacio, usar Q para capturar a la cantante  y la E para interactuar con el elementos del escenario (palancas).
+Además podremos cambiar la vista de la cámara a partir de los números 1, 2, 3 o 4, golpear a partir del espacio, usar Q para capturar a la *cantante*  y la E para interactuar con el elementos del escenario (palancas).
+
+Otro punto relevante son las diferentes zonas que encontraremos en el mapa. Siendo el edificio donde se desarrolla la acción otro personaje principal con multitud de zonas y caminos que las conectan. Encontramos principalmente las siguientes:
+
+-Patio de butacas: divido en este y oeste, cada parte tiene a su público que reaccionará al fantasma y huirá si cae la lámpara y se apaga la luz de su zona. Esta conectada con el *escenario* y el *vestibulo*. Se puede ver desde los *palcos* pero no a la inversa.
+
+-Vestíbulo: Una zona amplia donde se refugia el públic cuando se austa, únicamente conecta con el *patio de butacas*.
+
+-**Escenario**: lugar incial de la *cantante* donde actúa y conectada a *Bambalinas* para los descansos de ella. Una trampilla permite bajar al *sótano oeste* pero no regresar.
+
+-**Bambalinas**: donde descansa la *cantante* y conectada directamente con el *sótano este* y el *escenario*. Una rampa en ella permite bajar al *sótano oeste* pero no regresar.
+
+-**Palco oste**: estancia inicial del vizconde donde se encuentra la palanca con la que lanzar la lámpara del patio de *butacas oeste*. Conectada directamente con el *escenario* y el *sótano* oeste; desde ella se puede ver el *patio de butacas* pero no a la inversa.
+
+-**Palco este**: sala similar a la anterior pero cambiando la zona oeste de las habitaciones conectadas por la este.
+
+-**Sótano oeste**: estancia conectada con el *palco oeste*, *bambalinas* y su homológo norte. Esta última requiere de subirse de una barca que comienza en la orilla contraria.
+
+-**Sótano este**: estancia conectada con el *palco este*, su homóloga norte, y la *sala de música*; conectando estas dos últimas a través de barcas. La primera conexión tiene la barca en esta orilla al incio, la segunda en la contraria.
+
+-**Celda**: sala que conecta con el *sótano norte* y donde el *fantasma* debe dejar a la *cantante* para completar su secuestro. Cuenta con unas rejas activables/desactibables que encierran a la *cantante*.
+
+-**Sótano norte**: estancia que conecta con la celda y a través de barcas con la *sala de música*, el *sótano este* y el *sótano oeste*.
+
+-**Sala de música**: estancia inicial del *fantasma*, donde compone. Mediante barcas conecta con *sótano norte* y *sótano este*. 
 
 ## Punto de partida
 Se parte de un proyecto base de Unity proporcionado por el profesor aquí:
