@@ -4,6 +4,11 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+/// <summary>
+/// Clase de la Cantante suministrada y que gestiona todo lo relacionado con el estado y acciones de este personaje.
+/// Se ha dado aleatoriedad, implementada en la máquina de estados, al tiempo de descanso para dar más variedad en la partida.
+/// </summary>
 public class Cantante : MonoBehaviour
 {
     // Segundos que estara cantando
@@ -11,7 +16,7 @@ public class Cantante : MonoBehaviour
     // Segundo en el que comezo a cantar
     private double tiempoComienzoCanto;
     // Segundos que esta descanasando
-    public double tiempoDeDescanso;
+    public double tiempoDeDescansoMin, tiempoDeDescescansoMax;
     // Segundo en el que comezo a descansar
     private double tiempoComienzoDescanso;
     // Si esta capturada
