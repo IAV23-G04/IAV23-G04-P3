@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /*
- * Se encarga de controlar si el público debería huir o quedarse en el patio de butacas
+ * Se encarga de controlar si el público debería huir o quedarse en el patio de butacas.
+ * Al ser un comportamiento muy simple no requiere de máquinas de estado y solo necesita
+ * cambiar el objetivo del agente entre su posición en el escenario y el lobby.
  */
 
 public class Publico : MonoBehaviour
@@ -13,13 +15,17 @@ public class Publico : MonoBehaviour
     bool miLuzEncendida;
     bool sentado = true;
 
-    GameObject luzAsociada;
+    //GameObject luzAsociada;
     NavMeshAgent agent;
+    Vector3 posStage;
+    BoxCollider lobbyZone;
     private void Start()
     {
         //lucesEncendidas = 2;
         agent = GetComponent<NavMeshAgent>();
         sentado = true;
+        posStage = transform.position;
+        lobbyZone = GameBlackboard.blackBoard.lobby.GetComponent<BoxCollider>();
     }
 
     public void LateUpdate()
@@ -42,16 +48,23 @@ public class Publico : MonoBehaviour
     {
         miLuzEncendida = false;
         sentado = false;
+        agent.SetDestination(GetRandomPosInLobby());
         //lucesEncendidas--;
         //sentado = lucesEncendidas == 2;
     }
     //se llama cuando el fantasma o el vizconde desactivan o activan las luces
     public void enciendeLuz()
     {
+        agent.SetDestination(posStage);
         miLuzEncendida = true;
         sentado = true;
         // lucesEncendidas++;
         //sentado = lucesEncendidas == 2;
+    }
+
+    Vector3 GetRandomPosInLobby()
+    {
+        return lobbyZone.transform.position + new Vector3(Random.Range(-lobbyZone.size.x / 3, lobbyZone.size.x / 3), transform.position.y, Random.Range(-lobbyZone.size.z / 3, lobbyZone.size.z / 3));
     }
 
 }
