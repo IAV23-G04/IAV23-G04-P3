@@ -43,6 +43,16 @@ Otro punto relevante son las diferentes zonas que encontraremos en el mapa. Sien
 
 -**Sala de música**: estancia inicial del *fantasma*, donde compone. Mediante barcas conecta con *sótano norte* y *sótano este*. 
 
+Además de estas salas hay que tener en cuenta respecto al mapa una serie de datos:
+
+-Todos los lugares conectados por barcas cuentan con palancas a ambos lados para traer las barcas a este, con un coste mayor.
+
+-Las palancas son interactuables tanto por el *fantasma* como por le *vizconde*.
+
+-Las barcas solo pueden ser ocupadas por una persona, o dos personas si una de las dos lleva la otra al hombro(*fantasma* y *cantante*).
+
+-Los golpes dados a muebles como el piano en la sal de música se escucharán en todas las estancias subterráneas.
+
 ## Punto de partida
 Se parte de un proyecto base de Unity proporcionado por el profesor aquí:
 https://github.com/Narratech/IAV-Decision
