@@ -21,37 +21,37 @@ Además podremos cambiar la vista de la cámara a partir de los números 1, 2, 3
 
 Otro punto relevante son las diferentes zonas que encontraremos en el mapa. Siendo el edificio donde se desarrolla la acción otro personaje principal con multitud de zonas y caminos que las conectan. Encontramos principalmente las siguientes:
 
--Patio de butacas: divido en este y oeste, cada parte tiene a su público que reaccionará al fantasma y huirá si cae la lámpara y se apaga la luz de su zona. Esta conectada con el *escenario* y el *vestibulo*. Se puede ver desde los *palcos* pero no a la inversa.
+**Patio de butacas**: divido en este y oeste, cada parte tiene a su público que reaccionará al fantasma y huirá si cae la lámpara y se apaga la luz de su zona. Esta conectada con el *escenario* y el *vestibulo*. Se puede ver desde los *palcos* pero no a la inversa.
 
--Vestíbulo: Una zona amplia donde se refugia el públic cuando se austa, únicamente conecta con el *patio de butacas*.
+**Vestíbulo**: Una zona amplia donde se refugia el públic cuando se austa, únicamente conecta con el *patio de butacas*.
 
--**Escenario**: lugar inicial de la *cantante* donde actúa y conectada a *Bambalinas* para los descansos de ella. Una trampilla permite bajar al *sótano oeste* pero no regresar.
+**Escenario**: lugar inicial de la *cantante* donde actúa y conectada a *Bambalinas* para los descansos de ella. Una trampilla permite bajar al *sótano oeste* pero no regresar.
 
--**Bambalinas**: donde descansa la *cantante* y conectada directamente con el *sótano este* y el *escenario*. Una rampa en ella permite bajar al *sótano oeste* pero no regresar.
+**Bambalinas**: donde descansa la *cantante* y conectada directamente con el *sótano este* y el *escenario*. Una rampa en ella permite bajar al *sótano oeste* pero no regresar.
 
--**Palco oeste**: estancia inicial del vizconde donde se encuentra la palanca con la que lanzar la lámpara del patio de *butacas oeste*. Conectada directamente con el *escenario* y el *sótano oeste*; desde ella se puede ver el *patio de butacas* pero no a la inversa.
+**Palco oeste**: estancia inicial del vizconde donde se encuentra la palanca con la que lanzar la lámpara del patio de *butacas oeste*. Conectada directamente con el *escenario* y el *sótano oeste*; desde ella se puede ver el *patio de butacas* pero no a la inversa.
 
--**Palco este**: sala similar a la anterior pero cambiando la zona oeste de las habitaciones conectadas por la este.
+**Palco este**: sala similar a la anterior pero cambiando la zona oeste de las habitaciones conectadas por la este.
 
--**Sótano oeste**: estancia conectada con el *palco oeste*, *bambalinas* y su homológo norte. Esta última requiere de subirse de una barca que comienza en la orilla contraria.
+**Sótano oeste**: estancia conectada con el *palco oeste*, *bambalinas* y su homológo norte. Esta última requiere de subirse de una barca que comienza en la orilla contraria.
 
--**Sótano este**: estancia conectada con el *palco este*, su homóloga norte, y la *sala de música*; conectando estas dos últimas a través de barcas. La primera conexión tiene la barca en esta orilla al incio, la segunda en la contraria.
+**Sótano este**: estancia conectada con el *palco este*, su homóloga norte, y la *sala de música*; conectando estas dos últimas a través de barcas. La primera conexión tiene la barca en esta orilla al incio, la segunda en la contraria.
 
--**Celda**: sala que conecta con el *sótano norte* y donde el *fantasma* debe dejar a la *cantante* para completar su secuestro. Cuenta con unas rejas activables/desactibables que encierran a la *cantante*.
+**Celda**: sala que conecta con el *sótano norte* y donde el *fantasma* debe dejar a la *cantante* para completar su secuestro. Cuenta con unas rejas activables/desactibables que encierran a la *cantante*.
 
--**Sótano norte**: estancia que conecta con la celda y a través de barcas con la *sala de música*, el *sótano este* y el *sótano oeste*.
+**Sótano norte**: estancia que conecta con la celda y a través de barcas con la *sala de música*, el *sótano este* y el *sótano oeste*.
 
--**Sala de música**: estancia inicial del *fantasma*, donde compone. Mediante barcas conecta con *sótano norte* y *sótano este*. 
+**Sala de música**: estancia inicial del *fantasma*, donde compone. Mediante barcas conecta con *sótano norte* y *sótano este*. 
 
 Además de estas salas hay que tener en cuenta respecto al mapa una serie de datos:
 
--Todos los lugares conectados por barcas cuentan con palancas a ambos lados para traer las barcas a este, con un coste mayor.
+- Todos los lugares conectados por barcas cuentan con palancas a ambos lados para traer las barcas a este, con un coste mayor.
 
--Las palancas son interactuables tanto por el *fantasma* como por le *vizconde*.
+- Las palancas son interactuables tanto por el *fantasma* como por le *vizconde*.
 
--Las barcas solo pueden ser ocupadas por una persona, o dos personas si una de las dos lleva la otra al hombro(*fantasma* y *cantante*).
+- Las barcas solo pueden ser ocupadas por una persona, o dos personas si una de las dos lleva la otra al hombro(*fantasma* y *cantante*).
 
--Los golpes dados a muebles como el piano en la sal de música se escucharán en todas las estancias subterráneas.
+- Los golpes dados a muebles como el piano en la sal de música se escucharán en todas las estancias subterráneas.
 
 ```mermaid
 stateDiagram
