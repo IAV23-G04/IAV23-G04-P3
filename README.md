@@ -191,6 +191,19 @@ Para la clase de Action se utilizará de la siguiente manera:
         function getDuration() -> float
 ```
 
+El público tendrá el siguiente comportamiento:
+
+```mermaid
+stateDiagram
+
+    [*] --> Público
+    Público --> VerCantante
+
+    LamparaTirada --> HuidaTeatro
+    LamparaArreglada --> EntradaTeatro
+    EntradaTeatro --> VerCantante
+```
+
 La máquina de estados utilizada para la cantante se escruturará de la siguiente manera:
 
 ```mermaid
