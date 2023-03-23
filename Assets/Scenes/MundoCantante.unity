@@ -15877,6 +15877,7 @@ MonoBehaviour:
   stage: {fileID: 908012309}
   basement: {fileID: 1137905981}
   backStage: {fileID: 553852558}
+  lobby: {fileID: 745328012}
   singer: {fileID: 373871681117018864}
   player: {fileID: 1908876747}
   westLever: {fileID: 162329927}
