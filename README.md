@@ -198,8 +198,10 @@ stateDiagram
 
     [*] --> Público
     Público --> VerCantante
+    VerCantante --> LamparaTirada
 
     LamparaTirada --> HuidaTeatro
+    HuidaTeatro --> LamparaArreglada
     LamparaArreglada --> EntradaTeatro
     EntradaTeatro --> VerCantante
 ```
@@ -210,6 +212,8 @@ La máquina de estados utilizada para la cantante se escruturará de la siguient
 stateDiagram
     [*] --> Cantante
     Cantante --> Escenario
+    Escenario --> Bambalinas
+    Bambalinas --> Escenario
     Cantante --> Bambalinas
     
     EstanciasSubterraneas --> Merodeo
@@ -226,6 +230,8 @@ stateDiagram
     BuscarCantante --> CapturarCantante
     CapturarCantante --> LlevarACelda
     LlevarACelda --> CercarCelda
+
+    CantanteLiberada --> BuscarCantante
 ```
 Además el fantasma contará con con un sistema de gestión sensorial para reaccionar a lo que realmente ve y oye, únicamente recordando lo que ha ido viendo por el mundo.
 
