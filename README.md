@@ -53,6 +53,9 @@ Además de estas salas hay que tener en cuenta respecto al mapa una serie de dat
 
 - Los golpes dados a muebles como el piano en la sal de música se escucharán en todas las estancias subterráneas.
 
+
+Un gráfico que muestra las diferentes salas y como están conectadas entre ellas:
+
 ```mermaid
 stateDiagram
     Vestíbulo --> PatioDeButacas
