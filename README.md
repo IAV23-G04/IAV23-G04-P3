@@ -57,25 +57,25 @@ Además de estas salas hay que tener en cuenta respecto al mapa una serie de dat
 stateDiagram
     Escenario --> Bambalinas
     Bambalinas --> Escenario
-    Escenario --> Sótano oeste
-    Bambalinas --> Sótano este
-    Sótano este --> Bambalinas
-    Bambalinas --> Sótano oeste
-    Palco oeste --> Escenario
-    Palco oeste --> Sótano oeste
-    Palco este --> Escenario
-    Palco este --> Sótano este
-    Sótano oeste --> Sótano norte
-    Sótano norte --> Sótano oeste
-    Sótano este --> Sótano norte
-    Sótano norte --> Sótano este
-    Sótano este --> Sala de música
-    Sala de múscia --> Sótano este
-    Celda --> Sótano norte
-    Sótano norte --> Celda
-    Sótano norte --> Sala de música
-    Sala de música --> Sótano norte
-    Sala de música --> Sótano este    
+    Escenario --> SótanoOeste
+    Bambalinas --> SótanoEste
+    SótanoEste --> Bambalinas
+    Bambalinas --> SótanoOeste
+    PalcoOeste --> Escenario
+    PalcoOeste --> SótanoOeste
+    PalcoEste --> Escenario
+    PalcoEste --> SótanoEste
+    SótanoOeste --> SótanoNorte
+    SótanoNorte --> SótanoOeste
+    SótanoEste --> SótanoNorte
+    SótanoNorte --> SótanoEste
+    SótanoEste --> SalaDeMúsica
+    SalaDeMúscia --> SótanoEste
+    Celda --> SótanoNorte
+    SótanoNorte --> Celda
+    SótanoNorte --> SalaDeMúsica
+    SalaDeMúsica --> SótanoNorte
+    SalaDeMúsica --> SótanoEste    
 ```
 Por último hay que tener en cuenta una serie de comportamientos tanto del propio escenario como de los mismos personajes:
 
