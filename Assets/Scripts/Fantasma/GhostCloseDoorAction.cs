@@ -26,7 +26,7 @@ public class GhostCloseDoorAction : Action
     public override void OnAwake()
     {
         agent = GetComponent<NavMeshAgent>();
-        blackboard = GameObject.FindGameObjectWithTag("Blackboard").GetComponent<GameBlackboard>();
+        blackboard = GameBlackboard.blackBoard;
         puerta = blackboard.puerta;
     }
 

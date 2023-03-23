@@ -14,16 +14,18 @@ public class Publico : MonoBehaviour
     bool sentado = true;
 
     GameObject luzAsociada;
+    NavMeshAgent agent;
     private void Start()
     {
         //lucesEncendidas = 2;
+        agent = GetComponent<NavMeshAgent>();
         sentado = true;
     }
 
     public void LateUpdate()
     {
         //para que rote hacia donde se mueve
-        if (GetComponent<NavMeshAgent>().velocity.sqrMagnitude > Mathf.Epsilon)
+        if (agent.velocity.sqrMagnitude > Mathf.Epsilon)
         {
             transform.rotation = Quaternion.LookRotation(GetComponent<NavMeshAgent>().velocity.normalized);
         }

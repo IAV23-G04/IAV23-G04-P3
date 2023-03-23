@@ -29,8 +29,10 @@ public class GhostLlevarCantante : Action
     {
         agent = GetComponent<NavMeshAgent>();
 
-        sotanoNorte = GameObject.FindGameObjectWithTag("Blackboard").GetComponent<GameBlackboard>().basement;
-        singer = GameObject.FindGameObjectWithTag("Blackboard").GetComponent<GameBlackboard>().singer;
+        var bb = GameBlackboard.blackBoard;
+
+        sotanoNorte = bb.basement;
+        singer = bb.singer;
         singerNav = singer.GetComponent<NavMeshAgent>();        
     }
 

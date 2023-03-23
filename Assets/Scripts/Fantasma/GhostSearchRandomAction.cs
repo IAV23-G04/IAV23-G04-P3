@@ -29,7 +29,7 @@ public class GhostSearchRandomAction : Action
 
     public override void OnStart()
     {
-        randomSitio = GameObject.FindGameObjectWithTag("Blackboard").GetComponent<GameBlackboard>().getRandomSitio();
+        randomSitio = GameBlackboard.blackBoard.getRandomSitio();
     }
 
     public override TaskStatus OnUpdate()

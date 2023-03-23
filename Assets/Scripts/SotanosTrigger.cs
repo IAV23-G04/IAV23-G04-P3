@@ -20,9 +20,9 @@ public class SotanosTrigger : MonoBehaviour
     GameBlackboard blackboard;
     public GameObject ghost;
 
-    private void Awake()
+    private void Start()
     {
-        blackboard = GameObject.FindGameObjectWithTag("Blackboard").GetComponent<GameBlackboard>();
+        blackboard = GameBlackboard.blackBoard;
     }
     public void OnTriggerEnter(Collider other)
     {

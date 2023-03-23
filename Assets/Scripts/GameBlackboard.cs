@@ -9,8 +9,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI; 
+using UnityEngine.AI;
 
 /*
  * Tiene una referencia a todas las variables del mundo necesarias para que otros objetos tengan acceso a estas
@@ -26,6 +27,10 @@ public class GameBlackboard : MonoBehaviour
     public GameObject stage;
     public GameObject basement;
     public GameObject backStage;
+
+    //añadidas salas
+    public GameObject lobby;
+    
 
     public GameObject singer;
     public GameObject player;
@@ -45,8 +50,12 @@ public class GameBlackboard : MonoBehaviour
     //public bool gate { get; set; }
     public bool gate = false; //gate close -> false
 
+    //singleton
+    public static GameBlackboard blackBoard;
+
     void Awake()
     {
+        blackBoard = this;
         imprisoned = false;
         gate = false;
         hited = false;
@@ -58,7 +67,7 @@ public class GameBlackboard : MonoBehaviour
     }
 
     // Permite al fantasma saber a qué palanca debería ir
-    public GameObject nearestLever(GameObject go) 
+    public GameObject nearestLever(GameObject go)
     {
         //return ((westLever.transform.position - go.transform.position).magnitude > (eastLever.transform.position - go.transform.position).magnitude) ? eastLever : westLever; 
 
@@ -67,7 +76,7 @@ public class GameBlackboard : MonoBehaviour
             //se nessuno dei due e caduto vai al piu vicino
             return ((westLever.transform.position - go.transform.position).magnitude > (eastLever.transform.position - go.transform.position).magnitude) ? eastLever : westLever;
         }
-        else if(!westLever.GetComponentInChildren<ControlPalanca>().caido && eastLever.GetComponentInChildren<ControlPalanca>().caido)
+        else if (!westLever.GetComponentInChildren<ControlPalanca>().caido && eastLever.GetComponentInChildren<ControlPalanca>().caido)
         {
             //e caduto quello di destra, vai a SX
             return westLever;

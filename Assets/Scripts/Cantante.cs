@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -54,6 +55,8 @@ public class Cantante : MonoBehaviour
     public void Start()
     {
         agente.updateRotation = false;
+
+        bb = GameBlackboard.blackBoard;
     }
 
     public void LateUpdate()

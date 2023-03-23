@@ -22,7 +22,7 @@ public class ImprisonedCondition : Conditional
 
     public override void OnAwake()
     {
-        blackboard = GameObject.FindGameObjectWithTag("Blackboard").GetComponent<GameBlackboard>();
+        blackboard = GameBlackboard.blackBoard;
     }
 
     public override TaskStatus OnUpdate()
