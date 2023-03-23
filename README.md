@@ -186,9 +186,9 @@ Para los algoritmos que implementaremos nos basaremos en los pseudocódigo de Mi
 Para la clase de Action se utilizará de la siguiente manera:
 
 ```
-class Action:
-    function getGoalChange(goal: float) -> float
-    function getDuration() -> float
+    class Action:
+        function getGoalChange(goal: float) -> float
+        function getDuration() -> float
 ```
 
 La máquina de estados utilizada para la cantante se escruturará de la siguiente manera:
@@ -201,7 +201,7 @@ stateDiagram
     
     EstanciasSubterraneas --> Merodeo
     Vizconde --> DejarseLlevar
-```s
+```
 
 El árbol de comportamiento del fantasma será de la siguiente manera:
 
