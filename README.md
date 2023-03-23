@@ -183,6 +183,39 @@ Por último, dentro de esta misma categoría, tenemos una serie de scripts que h
 
 Lo que vamos a realizar para resolver esta práctica es implementar los diferentes comportamientos explicados anteriormente para los diferentes elementos del juego.
 Para los algoritmos que implementaremos nos basaremos en los pseudocódigo de Millington.
+Para la clase de Action se utilizará de la siguiente manera:
+
+```
+class Action:
+    function getGoalChange(goal: float) -> float
+    function getDuration() -> float
+```
+
+La máquina de estados utilizada para la cantante se escruturará de la siguiente manera:
+
+```mermaid
+stateDiagram
+    [*] --> Cantante
+    Cantante --> Escenario
+    Cantante --> Bambalinas
+    
+    EstanciasSubterraneas --> Merodeo
+    Vizconde --> DejarseLlevar
+```s
+
+El árbol de comportamiento del fantasma será de la siguiente manera:
+
+```mermaid
+stateDiagram
+    [*] --> Fantasma
+    Fantasma --> BuscarCantante
+    Fantasma --> TirarLámpara
+    BuscarCantante --> CapturarCantante
+    CapturarCantante --> LlevarACelda
+    LlevarACelda --> CercarCelda
+```
+Además el fantasma contará con con un sistema de gestión sensorial para reaccionar a lo que realmente ve y oye, únicamente recordando lo que ha ido viendo por el mundo.
+
 
 ## Pruebas y métricas
 
@@ -198,8 +231,8 @@ Las tareas se han realizado y el esfuerzo ha sido repartido entre los autores.
 
 | Estado  |  Tarea  |  Persona  |  
 |:-:|:--|:-:|
-| ✔ | Readme explicacion de clases | Raul |
-| ✔ | Readme explicacion de clases del fantasma y propuesta | Antonio |
+| ✔ | Readme explicacion de clases y explicación del escenario | Raul |
+| ✔ | Readme explicacion de clases y propuesta | Antonio |
 | OPCIONAL|
 
 Todo se ha hecho junto ya que residimos en la misma vivienda
