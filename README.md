@@ -21,15 +21,15 @@ Además podremos cambiar la vista de la cámara a partir de los números 1, 2, 3
 
 Otro punto relevante son las diferentes zonas que encontraremos en el mapa. Siendo el edificio donde se desarrolla la acción otro personaje principal con multitud de zonas y caminos que las conectan. Encontramos principalmente las siguientes:
 
--**Patio de butacas**: divido en este y oeste, cada parte tiene a su público que reaccionará al fantasma y huirá si cae la lámpara y se apaga la luz de su zona. Esta conectada con el *escenario* y el *vestibulo*. Se puede ver desde los *palcos* pero no a la inversa.
+-Patio de butacas: divido en este y oeste, cada parte tiene a su público que reaccionará al fantasma y huirá si cae la lámpara y se apaga la luz de su zona. Esta conectada con el *escenario* y el *vestibulo*. Se puede ver desde los *palcos* pero no a la inversa.
 
--**Vestíbulo**: Una zona amplia donde se refugia el públic cuando se austa, únicamente conecta con el *patio de butacas*.
+-Vestíbulo: Una zona amplia donde se refugia el públic cuando se austa, únicamente conecta con el *patio de butacas*.
 
--**Escenario**: lugar incial de la *cantante* donde actúa y conectada a *Bambalinas* para los descansos de ella. Una trampilla permite bajar al *sótano oeste* pero no regresar.
+-**Escenario**: lugar inicial de la *cantante* donde actúa y conectada a *Bambalinas* para los descansos de ella. Una trampilla permite bajar al *sótano oeste* pero no regresar.
 
 -**Bambalinas**: donde descansa la *cantante* y conectada directamente con el *sótano este* y el *escenario*. Una rampa en ella permite bajar al *sótano oeste* pero no regresar.
 
--**Palco oste**: estancia inicial del vizconde donde se encuentra la palanca con la que lanzar la lámpara del patio de *butacas oeste*. Conectada directamente con el *escenario* y el *sótano* oeste; desde ella se puede ver el *patio de butacas* pero no a la inversa.
+-**Palco oeste**: estancia inicial del vizconde donde se encuentra la palanca con la que lanzar la lámpara del patio de *butacas oeste*. Conectada directamente con el *escenario* y el *sótano oeste*; desde ella se puede ver el *patio de butacas* pero no a la inversa.
 
 -**Palco este**: sala similar a la anterior pero cambiando la zona oeste de las habitaciones conectadas por la este.
 
@@ -53,8 +53,31 @@ Además de estas salas hay que tener en cuenta respecto al mapa una serie de dat
 
 -Los golpes dados a muebles como el piano en la sal de música se escucharán en todas las estancias subterráneas.
 
-
-Además hay que tener en cuenta una serie de comportamientos tanto del propio escenario como de los mismos personajes:
+```mermaid
+stateDiagram
+    Escenario --> Bambalinas
+    Bambalinas --> Escenario
+    Escenario --> Sótano oeste
+    Bambalinas --> Sótano este
+    Sótano este --> Bambalinas
+    Bambalinas --> Sótano oeste
+    Palco oeste --> Escenario
+    Palco oeste --> Sótano oeste
+    Palco este --> Escenario
+    Palco este --> Sótano este
+    Sótano oeste --> Sótano norte
+    Sótano norte --> Sótano oeste
+    Sótano este --> Sótano norte
+    Sótano norte --> Sótano este
+    Sótano este --> Sala de música
+    Sala de múscia --> Sótano este
+    Celda --> Sótano norte
+    Sótano norte --> Celda
+    Sótano norte --> Sala de música
+    Sala de música --> Sótano norte
+    Sala de música --> Sótano este    
+```
+Por último hay que tener en cuenta una serie de comportamientos tanto del propio escenario como de los mismos personajes:
 
 - El público chillará si ve al fantasma sobre escenario.
 - El fantasma no capturará a la cantante si hay público mirando.
