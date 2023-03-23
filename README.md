@@ -184,57 +184,6 @@ Por último, dentro de esta misma categoría, tenemos una serie de scripts que h
 Lo que vamos a realizar para resolver esta práctica es implementar los diferentes comportamientos explicados anteriormente para los diferentes elementos del juego.
 Para los algoritmos que implementaremos nos basaremos en los pseudocódigo de Millington.
 
-El pseudocódigo del algoritmo de seguimiento es:
-
-```
-class KinematicSeek:
-character: Static
-target: Static
-
-maxSpeed: float
-
-function getSteeringl -> KinematicSteering0utput:
-    result = new KinematicSteering0utput( )
-
-    #Get the direction to the target.
-    result.velocity = target.position - character.position
-
-    #The velocity is along this direction, at full speed.
-    result .velocity.normalize( )
-    result.velocity *= maxSpeed
-
-    #Face in the direction we want to move.
-    character.orientation = newOrientation(
-    character .orientation,
-    result,velocity)
-
-result.rotation = 0 
-return result
-```
-
-El pseudocódigo del algoritmo de merodeo es:
-
-```
-class Kinematiciander:
-character: Static
-maxSpeed: float
-
-# The maximum rotation speed we"d like, probably should be smaller
-# than the maximum possible, for a letsurely change in direction.
-maxRotation: float
-
-function getSteering() -> KinematicSteer ingOutput:
-    result = new KinematicSteer ing0utput( )
-
-    #Get velocity from the vector form of the orientation.
-    result.velocity = maxSpeed * character .orientation.asVector( )
-
-    #Change our orientation randomly.
-    result.rotation = randomBinonial() * maxRotation
-
-    return result
-```
-
 ## Pruebas y métricas
 
 Aquí se podrán los diferentes videos de las pruebas y partes del proyecto para ir documentando su funcionalidad:
