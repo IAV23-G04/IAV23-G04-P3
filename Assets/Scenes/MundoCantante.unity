@@ -15877,6 +15877,7 @@ MonoBehaviour:
   basement: {fileID: 1137905981}
   backStage: {fileID: 553852558}
   lobby: {fileID: 745328012}
+  patioButacas: {fileID: 329627921}
   singer: {fileID: 373871681117018864}
   player: {fileID: 1908876747}
   westLever: {fileID: 162329927}
@@ -16933,6 +16934,7 @@ MonoBehaviour:
   Bambalinas: {fileID: 0}
   bb: {fileID: 0}
   fantasma: {fileID: 0}
+  vizconde: {fileID: 0}
 --- !u!114 &2536986899609911508
 MonoBehaviour:
   m_ObjectHideFlags: 0
