@@ -18,12 +18,14 @@ public class PianoCondition : Conditional
 
     public override void OnAwake()
     {
-        // IMPLEMENTAR
+        piano = GameBlackboard.blackBoard.piano.GetComponent<ControlPiano>();
     }
 
     public override TaskStatus OnUpdate()
     {
-        // IMPLEMENTAR
-        return TaskStatus.Success;
+        if (piano.roto)
+            return TaskStatus.Success;
+        else
+            return TaskStatus.Failure;
     }
 }

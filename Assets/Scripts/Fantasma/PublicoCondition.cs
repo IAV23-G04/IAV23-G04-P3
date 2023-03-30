@@ -19,14 +19,26 @@ public class PublicoCondition : Conditional
     [SerializeField] bool publicoWest;
     [SerializeField] bool publicoEast;
 
+    ControlPalanca palancaWest;
+    ControlPalanca palancaEast;
+
     public override void OnAwake()
     {
-        // IMPLEMENTAR 
+        palancaEast = GameBlackboard.blackBoard.eastLever.GetComponentInChildren<ControlPalanca>();
+        palancaWest = GameBlackboard.blackBoard.westLever.GetComponentInChildren<ControlPalanca>();
     }
 
     public override TaskStatus OnUpdate()
     {
-        // IMPLEMENTAR
-        return TaskStatus.Success;
+
+        publicoEast = palancaEast.caido;
+        publicoWest = palancaWest.caido;
+
+        if(publicoWest || publicoEast)
+        {
+            return TaskStatus.Success;
+        }
+
+        return TaskStatus.Failure;
     }
 }
