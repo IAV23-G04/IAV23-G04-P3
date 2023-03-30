@@ -307,13 +307,18 @@ El árbol de comportamiento del fantasma será de la siguiente manera:
 ```mermaid
 stateDiagram
     [*] --> Fantasma
-    Fantasma --> BuscarCantante
-    Fantasma --> TirarLámpara
-    BuscarCantante --> CapturarCantante
-    CapturarCantante --> LlevarACelda
-    LlevarACelda --> CercarCelda
-
-    CantanteLiberada --> BuscarCantante
+    Fantasma --> TocarPiano
+    Fantasma --> EscuchaCantante
+    EscuchaCantante --> TirarLámparaEste
+    EscuchaCantante --> TirarLámparaOeste
+    TirarLámparaEste --> NoPublico
+    TirarLámparaOeste --> NoPublico
+    NoPublico --> CapturaCantante
+    CapturaCantante --> EncerrarEnCelda
+    ChoqueConVizconde --> SoltarCantante
+    SoltarCantante --> TocarPiano
+    VizcondeTocaPiano --> ArreglarPiano
+    ArreglarPiano --> TocarPiano
 ```
 Además el fantasma contará con con un sistema de gestión sensorial para reaccionar a lo que realmente ve y oye, únicamente recordando lo que ha ido viendo por el mundo.
 
