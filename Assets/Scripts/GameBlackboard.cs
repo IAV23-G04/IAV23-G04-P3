@@ -30,6 +30,7 @@ public class GameBlackboard : MonoBehaviour
 
     //añadidas salas
     public GameObject lobby;
+    public GameObject patioButacas;
     
 
     public GameObject singer;
