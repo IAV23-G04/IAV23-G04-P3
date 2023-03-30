@@ -286,14 +286,20 @@ La máquina de estados utilizada para la cantante se escruturará de la siguient
 
 ```mermaid
 stateDiagram
-    [*] --> Cantante
-    Cantante --> Escenario
-    Escenario --> Bambalinas
-    Bambalinas --> Escenario
-    Cantante --> Bambalinas
-    
-    EstanciasSubterraneas --> Merodeo
-    Vizconde --> DejarseLlevar
+    [*] --> Cantando
+    Cantando --> Descanso
+    Descanso --> Cantando
+    Cantando --> Secuestro
+    Descanso --> Secuestro
+    Secuestro --> Rescate
+    Secuestro --> Liberación
+    Rescate --> DeambularPerdida
+    Liberacion --> DeambularPerdida
+    Rescate --> VolverAZonaDeTrabajo
+    Liberacion -->VolverAZonaDeTrabajo
+    DeambularPerdida --> VolverAZonaDeTrabajo
+    VolverAZonaDeTrabajo --> Cantando
+    VolverAZonaDeTrabajo --> Descanso
 ```
 
 El árbol de comportamiento del fantasma será de la siguiente manera:
