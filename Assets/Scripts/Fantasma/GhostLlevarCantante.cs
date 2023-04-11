@@ -44,11 +44,14 @@ public class GhostLlevarCantante : Action
         {
             agent.SetDestination(transform.position);
             singer.GetComponent<Cantante>().capturada = true;
+            singer.GetComponent<Cantante>().capturadaPorFantasma = true;
 
             //return TaskStatus.Success;
-            singerNav.enabled = false;
-            singer.transform.position = transform.position + new Vector3(0, 1, 0);
-            singer.transform.SetParent(transform, true);
+            //singerNav.enabled = false;
+            //singer.transform.position = transform.position + new Vector3(0, 1, 0);
+            //singer.transform.SetParent(transform, true);
+
+            singer.GetComponent<Cantante>().sigueFantasma();
             //agent.SetDestination(sotanoNorte.transform.position);
 
             return TaskStatus.Success;

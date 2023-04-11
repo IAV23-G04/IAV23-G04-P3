@@ -83,6 +83,7 @@ public class Player : MonoBehaviour
         //realiza la acción de captura
         if (Input.GetKeyDown(KeyCode.Q) && ultimaAccion <= 0)
         {
+            cantantePruebas.GetComponent<Cantante>().setCapturada(true, false);
             ultimaAccion = tiempoEsperaAccion;
             areaCaptura.SetActive(true);
             anim.SetBool("Usable", true);
@@ -99,9 +100,7 @@ public class Player : MonoBehaviour
         }
         anim.SetFloat("Speed", GetComponent<NavMeshAgent>().velocity.magnitude);
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            cantantePruebas.GetComponent<Cantante>().setCapturada(true);
-        }
+       
+        
     }
 }

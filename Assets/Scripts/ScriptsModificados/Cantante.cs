@@ -38,7 +38,8 @@ public class Cantante : MonoBehaviour
     // Distancia de merodeo
     public int distanciaDeMerodeo = 16;
     // Si canta o no
-    public bool cantando = false;
+    public bool cantando = false, capturadaPorFantasma = false;
+
 
     // Componente cacheado NavMeshAgent
     public NavMeshAgent agente;
@@ -171,8 +172,9 @@ public class Cantante : MonoBehaviour
         return capturada;
     }
 
-    public void setCapturada(bool cap)
+    public void setCapturada(bool cap, bool porFantasma)
     {
+        capturadaPorFantasma = porFantasma;
         capturada = cap;
     }
 

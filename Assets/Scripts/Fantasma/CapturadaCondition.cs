@@ -18,16 +18,18 @@ using BehaviorDesigner.Runtime.Tasks;
 
 public class CapturadaCondition : Conditional
 {
-    //Cantante cantante;
+    Cantante cantante;
 
     public override void OnAwake()
     {
-        // IMPLEMENTAR
+        cantante = GameBlackboard.blackBoard.singer.GetComponent<Cantante>();
     }
 
     public override TaskStatus OnUpdate()
     {
-        // IMPLEMENTAR
-        return TaskStatus.Success;
+        if (cantante.capturadaPorFantasma)
+            return TaskStatus.Success;
+        else
+            return TaskStatus.Failure;
     }
 }

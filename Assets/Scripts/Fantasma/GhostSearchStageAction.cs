@@ -24,12 +24,18 @@ public class GhostSearchStageAction : Action
 
     public override void OnAwake()
     {
-        // IMPLEMENTAR
+        agent = GetComponent<NavMeshAgent>();
+        stage = GameBlackboard.blackBoard.stage;
     }
 
     public override TaskStatus OnUpdate()
     {
-        // IMPLEMENTAR
-        return TaskStatus.Success;
+        agent.SetDestination(stage.transform.position);
+
+        if(Vector3.Distance(agent.transform.position, stage.transform.position) < 1f)
+        {
+            return TaskStatus.Success;
+        }
+        return TaskStatus.Running;
     }
 }

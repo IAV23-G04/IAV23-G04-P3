@@ -14,7 +14,7 @@ using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
 
 /*
- * Devuelve Success cuando la cantante es sobre el palco
+ * Devuelve Success cuando el vizconde choca con el fantasma
  */
 
 
@@ -28,15 +28,20 @@ public class VizcondeChocaCondition : Conditional
 
     public override void OnAwake()
     {
-        // IMPLEMENTAR 
+        Vizconde = GameBlackboard.blackBoard.player;
+        agent = GetComponent<NavMeshAgent>();
 
     }
 
     public override TaskStatus OnUpdate()
     {
-        // IMPLEMENTAR
-        return TaskStatus.Success;
+
+        if(Vector3.Distance(Vizconde.transform.position, transform.position) < 1f)
+            return TaskStatus.Success;
+        else
+            return TaskStatus.Failure;
 
     }
 
+   
 }
