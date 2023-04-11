@@ -41,12 +41,8 @@ public class Cantante : MonoBehaviour
     public bool cantando = false;
 
     // Componente cacheado NavMeshAgent
-    private NavMeshAgent agente;
-
-    // Objetivos de su itinerario
-    public Transform Escenario;
-    public Transform Bambalinas;
-
+    public NavMeshAgent agente;
+  
     // La blackboard
     public GameBlackboard bb;
 
@@ -62,16 +58,10 @@ public class Cantante : MonoBehaviour
     //guarda la sala donde se encuentra
     GameObject salaActual;
 
-    public void Awake()
-    {
-        agente = GetComponent<NavMeshAgent>();
-    }
-
+    
     public void Start()
     {
         agente.updateRotation = false;
-
-        bb = GameBlackboard.blackBoard;
     }
 
     public void LateUpdate()
@@ -89,7 +79,7 @@ public class Cantante : MonoBehaviour
     // Comienza a cantar, reseteando el temporizador
     public void Cantar()
     {
-        tiempoComienzoCanto = 0;
+        tiempoComienzoCanto = Time.timeSinceLevelLoad;
         cantando = true;
     }
 
@@ -105,8 +95,7 @@ public class Cantante : MonoBehaviour
         tiempoDeDescanso = Random.Range((float)tiempoDeDescansoMin, (float)tiempoDeDescescansoMax);
         tiempoComienzoDescanso = Time.timeSinceLevelLoad;
 
-        nuevoObjetivo(Bambalinas.position);
-        // IMPLEMENTAR
+        nuevoObjetivo(bb.backStage.transform.position);
     }
 
     // Comprueba si tiene que dejar de descansar
@@ -165,7 +154,17 @@ public class Cantante : MonoBehaviour
     // Genera un nuevo punto de merodeo cada vez que agota su tiempo de merodeo actual
     public void IntentaMerodear()
     {
-        nuevoObjetivo(RandomNavmeshPosition(4));
+        //si estaba opersiguiendo a alguien se detiene
+        if (persiguiendo)
+            persiguiendo = false;
+
+        //si cumple su espacio de tiempo se desplaza hacia su nueva posicion objetivo
+        if (tiempoDeMerodeo + tiempoComienzoMerodeo <= Time.timeSinceLevelLoad)
+        {
+            tiempoComienzoMerodeo = Time.timeSinceLevelLoad;
+            nuevoObjetivo(RandomNavmeshPosition(distanciaDeMerodeo));
+        }
+       
     }
     public bool GetCapturada()
     {
@@ -188,12 +187,19 @@ public class Cantante : MonoBehaviour
         persiguiendo = true;
         objetivoPerseguir = vizconde;
     }
+    public void irAlEscenario()
+    {
+        agente.SetDestination(bb.stage.transform.position);
+    }
+
+    public bool enEscenario()
+    {
+        return Vector2.Distance(new Vector2(bb.stage.transform.position.x, bb.stage.transform.position.z), new Vector2(transform.position.x, transform.position.z)) <= 3f
+            && agente.pathStatus == NavMeshPathStatus.PathComplete;
+    }
 
     private void nuevoObjetivo(Vector3 obj)
     {
-        if (persiguiendo)
-            persiguiendo = false;
-
         agente.SetDestination(obj);
     }
 

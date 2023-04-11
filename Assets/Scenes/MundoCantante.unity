@@ -16904,9 +16904,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"LightsOn","value":{"$content":false,"$type":"System.Boolean"},"typeHandle":{"Identification":"System.Boolean,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"cantante","value":{"$content":0,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences:
+    - {fileID: 373871681117018864}
 --- !u!114 &373871681117018882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16919,22 +16920,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda1dafb473ee2d47acfd3301f82447c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoDeCanto: 5
-  tiempoDeDescansoMin: 2
-  tiempoDeDescescansoMax: 6
+  tiempoDeCanto: 3
+  tiempoDeDescansoMin: 5
+  tiempoDeDescescansoMax: 5
   capturada: 0
-  anguloVistaHorizontal: 0
-  distanciaVista: 0
+  anguloVistaHorizontal: 90
+  distanciaVista: 5
   objetivo: {fileID: 0}
-  tiempoDeMerodeo: 0
+  tiempoDeMerodeo: 3
   tiempoComienzoMerodeo: 0
   distanciaDeMerodeo: 16
   cantando: 0
-  Escenario: {fileID: 0}
-  Bambalinas: {fileID: 0}
-  bb: {fileID: 0}
-  fantasma: {fileID: 0}
-  vizconde: {fileID: 0}
+  agente: {fileID: 373871681117018865}
+  bb: {fileID: 2002151600}
+  fantasma: {fileID: 2536986899609911509}
+  vizconde: {fileID: 944435481}
 --- !u!114 &2536986899609911508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17085,7 +17085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1001 &2854911446422225760
 PrefabInstance:
   m_ObjectHideFlags: 0
