@@ -219,6 +219,7 @@ public class Cantante : MonoBehaviour
     {
         persiguiendo = false;
         agente.enabled = true;
+        agente.Warp(transform.position);
     }
 
     private void comenzarAPerseguir()
