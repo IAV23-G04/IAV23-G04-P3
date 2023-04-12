@@ -187,24 +187,19 @@ public class Cantante : MonoBehaviour
 
     public void sigueFantasma()
     {
-        agente.enabled = false;
-        persiguiendo = true;
+        comenzarAPerseguir();
         objetivoPerseguir = fantasma;
     }
 
     public void sigueVizconde()
     {
-        agente.enabled = false;
-        persiguiendo = true;
+        comenzarAPerseguir();
         objetivoPerseguir = vizconde;
     }
     public void irAlEscenario()
     {
         if (persiguiendo)
-        {
-            persiguiendo = false;
-            agente.enabled = true;
-        }
+            dejarDePerseguir();
 
         agente.SetDestination(bb.stage.transform.position);
     }
@@ -218,6 +213,18 @@ public class Cantante : MonoBehaviour
     private void nuevoObjetivo(Vector3 obj)
     {
         agente.SetDestination(obj);
+    }
+    
+    public void dejarDePerseguir()
+    {
+        persiguiendo = false;
+        agente.enabled = true;
+    }
+
+    private void comenzarAPerseguir()
+    {
+        persiguiendo = true;
+        agente.enabled = false;
     }
 
     private void OnCollisionEnter(Collision collision)
