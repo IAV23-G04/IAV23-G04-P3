@@ -69,7 +69,10 @@ public class Cantante : MonoBehaviour
     {
         //si esta persiguiendo a alguien actualzia la posicion donde se encuentra este
         if (persiguiendo)
-            agente.SetDestination(objetivoPerseguir.position);
+        {
+            transform.position = objetivoPerseguir.position - objetivo.forward.normalized;
+        }
+            
 
         if (agente.velocity.sqrMagnitude > Mathf.Epsilon)
         {
@@ -157,7 +160,11 @@ public class Cantante : MonoBehaviour
     {
         //si estaba opersiguiendo a alguien se detiene
         if (persiguiendo)
+        {
             persiguiendo = false;
+            agente.enabled = true;
+        }
+           
 
         //si cumple su espacio de tiempo se desplaza hacia su nueva posicion objetivo
         if (tiempoDeMerodeo + tiempoComienzoMerodeo <= Time.timeSinceLevelLoad)
@@ -180,17 +187,25 @@ public class Cantante : MonoBehaviour
 
     public void sigueFantasma()
     {
+        agente.enabled = false;
         persiguiendo = true;
         objetivoPerseguir = fantasma;
     }
 
     public void sigueVizconde()
     {
+        agente.enabled = false;
         persiguiendo = true;
         objetivoPerseguir = vizconde;
     }
     public void irAlEscenario()
     {
+        if (persiguiendo)
+        {
+            persiguiendo = false;
+            agente.enabled = true;
+        }
+
         agente.SetDestination(bb.stage.transform.position);
     }
 
