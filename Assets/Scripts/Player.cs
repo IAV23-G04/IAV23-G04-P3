@@ -28,14 +28,15 @@ public class Player : MonoBehaviour
     private float tiempoAccionActiva;
     private float ultimaAccion = 0;
     private Animator anim;
-    private Rigidbody rb;
 
     public GameObject cantantePruebas;
+    Cantante cantante;
     void Start()
     {
         tiempoAtaqueActivo = tiempoEsperaAtaque / 2;
         anim = gameObject.GetComponentInChildren<Animator>();
-        rb = gameObject.GetComponent<Rigidbody>();
+
+        cantante = cantantePruebas.GetComponent<Cantante>();
     }
 
     void Update()
@@ -81,16 +82,16 @@ public class Player : MonoBehaviour
             anim.SetBool("Attack", false);
         }
         //realiza la acción de captura
-        if (Input.GetKeyDown(KeyCode.Q) && ultimaAccion <= 0)
+        if (Input.GetKeyDown(KeyCode.Q) && ultimaAccion <= 0 && Vector3.Distance(cantantePruebas.transform.position, transform.position) < 2f)
         {
-            cantantePruebas.GetComponent<Cantante>().setCapturada(true, false);
+            cantante.setCapturada(true, false);
             ultimaAccion = tiempoEsperaAccion;
             areaCaptura.SetActive(true);
             anim.SetBool("Usable", true);
         }
-        if (Input.GetKeyDown(KeyCode.T) && ultimaAccion <= 0)
+        if (Input.GetKeyDown(KeyCode.T) && ultimaAccion <= 0 && cantante.capturada && !cantante.capturadaPorFantasma)
         {
-            cantantePruebas.GetComponent<Cantante>().setCapturada(false);
+            cantante.setCapturada(false);
             ultimaAccion = tiempoEsperaAccion;
             areaCaptura.SetActive(true);
             anim.SetBool("Usable", true);

@@ -18,16 +18,23 @@ public class GhostArreglaPianoAction : Action
 {
     ControlPiano pianoControl;
     GameObject piano;
+    NavMeshAgent agent;
 
     public override void OnAwake()
     {
         pianoControl = GameObject.FindGameObjectWithTag("Piano").GetComponent<ControlPiano>();
         piano = GameObject.FindGameObjectWithTag("Piano");
+        agent = GetComponent<NavMeshAgent>();
     }
+
+    
 
     public override TaskStatus OnUpdate()
     {
-        if (pianoControl.roto)
+        agent.SetDestination(piano.transform.position);
+
+        if (pianoControl.roto && 
+            Vector2.Distance(new Vector2(piano.transform.position.x, piano.transform.position.z), new Vector2(transform.position.x, transform.position.z)) < 2f)
         {
             pianoControl.ArreglaPiano();
             return TaskStatus.Success;

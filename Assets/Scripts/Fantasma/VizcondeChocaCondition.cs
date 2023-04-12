@@ -20,15 +20,15 @@ using UnityEngine.AI;
 
 public class VizcondeChocaCondition : Conditional
 {
-    GameObject Vizconde;
+    Player vizconde;
     NavMeshAgent agent;
 
-    CapsuleCollider cc;
-    bool golpeado = false;
+    float size;
 
     public override void OnAwake()
     {
-        Vizconde = GameBlackboard.blackBoard.player;
+        vizconde = GameBlackboard.blackBoard.player.GetComponent<Player>();
+        size = vizconde.areaAtaque.GetComponent<BoxCollider>().size.x;
         agent = GetComponent<NavMeshAgent>();
 
     }
@@ -36,8 +36,12 @@ public class VizcondeChocaCondition : Conditional
     public override TaskStatus OnUpdate()
     {
 
-        if(Vector3.Distance(Vizconde.transform.position, transform.position) < 1f)
+        if(vizconde.areaAtaque.activeSelf && Vector3.Distance(vizconde.transform.position, transform.position) <= size*2)
+        {
+            agent.SetDestination(transform.position);
             return TaskStatus.Success;
+        }
+            
         else
             return TaskStatus.Failure;
 

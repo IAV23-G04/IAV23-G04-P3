@@ -55,10 +55,11 @@ public class Cantante : MonoBehaviour
     //guarda la sala donde se encuentra
     GameObject salaActual;
 
-
+    float offset;
     public void Start()
     {
         agente.updateRotation = false;
+        offset = transform.position.y - bb.stage.transform.position.y;
     }
 
     public void LateUpdate()
@@ -80,6 +81,8 @@ public class Cantante : MonoBehaviour
     public void Cantar()
     {
         tiempoComienzoCanto = Time.timeSinceLevelLoad;
+        transform.rotation = Quaternion.LookRotation(new Vector3(bb.patioButacas.transform.position.x, 
+            transform.position.y, bb.patioButacas.transform.position.z));
         cantando = true;
     }
 
@@ -92,6 +95,8 @@ public class Cantante : MonoBehaviour
     // Comienza a descansar, reseteando el temporizador
     public void Descansar()
     {
+        cantando = false;
+
         tiempoDeDescanso = Random.Range((float)tiempoDeDescansoMin, (float)tiempoDeDescescansoMax);
         tiempoComienzoDescanso = Time.timeSinceLevelLoad;
 
@@ -142,6 +147,7 @@ public class Cantante : MonoBehaviour
     {
         Vector3 randomPos;
         NavMeshHit navMeshHit;
+       
         do
         {
             randomPos = Random.insideUnitSphere * distance + transform.position;
@@ -162,6 +168,12 @@ public class Cantante : MonoBehaviour
         //si cumple su espacio de tiempo se desplaza hacia su nueva posicion objetivo
         if (tiempoDeMerodeo + tiempoComienzoMerodeo <= Time.timeSinceLevelLoad)
         {
+            NavMeshHit navMeshHit;
+            NavMesh.SamplePosition(transform.position, out navMeshHit, 100, NavMesh.AllAreas);
+
+            transform.position = navMeshHit.position + Vector3.up * offset;
+            agente.Warp(navMeshHit.position + Vector3.up * offset);
+
             tiempoComienzoMerodeo = Time.timeSinceLevelLoad;
             nuevoObjetivo(RandomNavmeshPosition(distanciaDeMerodeo));
         }
@@ -179,6 +191,8 @@ public class Cantante : MonoBehaviour
 
         if (capturada)
         {
+            cantando = false;
+
             if (capturadaPorFantasma)
                 sigueFantasma();
             else
