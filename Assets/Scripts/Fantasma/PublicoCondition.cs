@@ -16,8 +16,8 @@ public class PublicoCondition : Conditional
 {
     GameBlackboard blackboard;
 
-    [SerializeField] bool publicoWest;
-    [SerializeField] bool publicoEast;
+    bool publicoWest;
+    bool publicoEast;
 
     ControlPalanca palancaWest;
     ControlPalanca palancaEast;
@@ -34,7 +34,7 @@ public class PublicoCondition : Conditional
         publicoEast = palancaEast.caido;
         publicoWest = palancaWest.caido;
 
-        if(publicoWest || publicoEast)
+        if (!publicoWest && !publicoEast)
         {
             return TaskStatus.Success;
         }

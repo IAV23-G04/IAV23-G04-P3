@@ -16,16 +16,16 @@ public class GhostDropLamp : Action
     ControlPalanca palancaD;
 
 
-    [SerializeField] bool pI;
-    [SerializeField] bool pD;
+   bool pI;
+   bool pD;
 
     public override void OnAwake()
     {
         blackboard = GameBlackboard.blackBoard;
         agentGhost = GetComponent<NavMeshAgent>();
 
-        palancaI = blackboard.westLever.GetComponent<ControlPalanca>();
-        palancaD = blackboard.eastLever.GetComponent<ControlPalanca>();
+        palancaI = blackboard.westLever.GetComponentInChildren<ControlPalanca>();
+        palancaD = blackboard.eastLever.GetComponentInChildren<ControlPalanca>();
     }
 
   

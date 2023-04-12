@@ -28,11 +28,15 @@ public class GhostSearchStageAction : Action
         stage = GameBlackboard.blackBoard.stage;
     }
 
-    public override TaskStatus OnUpdate()
+    public override void OnStart()
     {
         agent.SetDestination(stage.transform.position);
+    }
 
-        if(Vector3.Distance(agent.transform.position, stage.transform.position) < 1f)
+    public override TaskStatus OnUpdate()
+    {
+     
+        if(agent.pathStatus == NavMeshPathStatus.PathComplete)
         {
             return TaskStatus.Success;
         }

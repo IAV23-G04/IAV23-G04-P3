@@ -21,7 +21,7 @@ public class GhostLlevarCantante : Action
 {
     NavMeshAgent agent;
     NavMeshAgent singerNav;
-    GameObject singer;
+    GameObject cantante;
 
     GameObject sotanoNorte;
 
@@ -31,28 +31,23 @@ public class GhostLlevarCantante : Action
 
         var bb = GameBlackboard.blackBoard;
 
+
         sotanoNorte = bb.basement;
-        singer = bb.singer;
-        singerNav = singer.GetComponent<NavMeshAgent>();        
+        cantante = bb.singer;
+    }
+
+    public override void OnStart()
+    {
+        cantante.GetComponent<Cantante>().sigueFantasma();
+        agent.SetDestination(sotanoNorte.transform.position);
     }
 
     public override TaskStatus OnUpdate()
     {
-        agent.SetDestination(singer.transform.position);
-
-        if (Vector3.SqrMagnitude(transform.position - singer.transform.position) < 1.2f)
+     
+        if (agent.pathStatus == NavMeshPathStatus.PathComplete)
         {
-            agent.SetDestination(transform.position);
-            singer.GetComponent<Cantante>().capturada = true;
-            singer.GetComponent<Cantante>().capturadaPorFantasma = true;
-
-            //return TaskStatus.Success;
-            //singerNav.enabled = false;
-            //singer.transform.position = transform.position + new Vector3(0, 1, 0);
-            //singer.transform.SetParent(transform, true);
-
-            singer.GetComponent<Cantante>().sigueFantasma();
-            //agent.SetDestination(sotanoNorte.transform.position);
+            cantante.GetComponent<Cantante>().dejarDePerseguir();
 
             return TaskStatus.Success;
         }
