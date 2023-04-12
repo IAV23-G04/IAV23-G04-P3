@@ -22,6 +22,8 @@ public class Cantante : MonoBehaviour
     private double tiempoComienzoDescanso;
     // Si esta capturada actualmente
     public bool capturada = false;
+    //si esta persiguiendo a alguien
+    bool persiguiendo = false;
 
     [Range(0, 180)]
     // Angulo de vision en horizontal
@@ -56,6 +58,7 @@ public class Cantante : MonoBehaviour
     GameObject salaActual;
 
     float offset;
+    Vector3 objetivoDesplazamiento;
     public void Start()
     {
         agente.updateRotation = false;
@@ -70,6 +73,10 @@ public class Cantante : MonoBehaviour
             transform.position = objetivoPerseguir.position - objetivoPerseguir.forward.normalized;
         }
 
+        if(persiguiendo)
+        {
+            agente.SetDestination(objetivoPerseguir.position);
+        }
 
         if (agente.velocity.sqrMagnitude > Mathf.Epsilon)
         {
@@ -80,7 +87,10 @@ public class Cantante : MonoBehaviour
     // Comienza a cantar, reseteando el temporizador
     public void Cantar()
     {
+        persiguiendo = false;
+
         tiempoComienzoCanto = Time.timeSinceLevelLoad;
+
         transform.rotation = Quaternion.LookRotation(new Vector3(bb.patioButacas.transform.position.x, 
             transform.position.y, bb.patioButacas.transform.position.z));
         cantando = true;
@@ -175,7 +185,11 @@ public class Cantante : MonoBehaviour
             agente.Warp(navMeshHit.position + Vector3.up * offset);
 
             tiempoComienzoMerodeo = Time.timeSinceLevelLoad;
-            nuevoObjetivo(RandomNavmeshPosition(distanciaDeMerodeo));
+
+            nuevoObjetivo(bb.getRandomSitio().transform.position);
+
+            //movimiento aleatorio basado en proximidad
+            //nuevoObjetivo(RandomNavmeshPosition(distanciaDeMerodeo));
         }
 
     }
@@ -186,11 +200,14 @@ public class Cantante : MonoBehaviour
 
     public void setCapturada(bool cap, bool porFantasma = false)
     {
+
         capturadaPorFantasma = porFantasma;
         capturada = cap;
+        persiguiendo = false;
 
         if (capturada)
         {
+            Debug.Log("cantanteCapturada");
             cantando = false;
 
             if (capturadaPorFantasma)
@@ -215,6 +232,13 @@ public class Cantante : MonoBehaviour
         agente.enabled = false;
         objetivoPerseguir = vizconde;
     }
+
+    public void perseguirVizconde()
+    {
+        persiguiendo = true;
+        objetivoPerseguir = vizconde.transform;
+    }
+
     public void irAlEscenario()
     {
         if (capturada)
@@ -231,6 +255,7 @@ public class Cantante : MonoBehaviour
 
     private void nuevoObjetivo(Vector3 obj)
     {
+        persiguiendo = false;
         agente.SetDestination(obj);
     }
 
@@ -240,13 +265,12 @@ public class Cantante : MonoBehaviour
         agente.enabled = true;
         agente.Warp(transform.position);
     }
-   
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("PointerLayer"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("PointerLayer"))
         {
-            salaActual = collision.gameObject;
+            salaActual = other.gameObject;
         }
-    }
+    } 
 }

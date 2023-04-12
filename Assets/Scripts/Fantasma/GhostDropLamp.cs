@@ -31,8 +31,10 @@ public class GhostDropLamp : Action
   
     public override TaskStatus OnUpdate()
     {
+        if (!agentGhost.enabled)
+            return TaskStatus.Running;
 
-        pD = palancaD.caido;
+            pD = palancaD.caido;
         pI = palancaI.caido;
 
         Vector3 newPosition;
@@ -57,6 +59,7 @@ public class GhostDropLamp : Action
         else newPosition = palancaD.transform.position;
 
 
+       
         agentGhost.SetDestination(newPosition);
 
        
