@@ -53,7 +53,7 @@ public class GhostImprisionSinger : Action
             bb.imprisoned = true;
             agent.SetDestination(transform.position);
 
-            singer.GetComponent<Cantante>().dejarDePerseguir();
+            singer.GetComponent<Cantante>().setCapturada(false);
             return TaskStatus.Success;
         }
            

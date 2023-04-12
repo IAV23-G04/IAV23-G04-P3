@@ -16926,7 +16926,6 @@ MonoBehaviour:
   capturada: 0
   anguloVistaHorizontal: 90
   distanciaVista: 5
-  objetivo: {fileID: 0}
   tiempoDeMerodeo: 3
   tiempoComienzoMerodeo: 0
   distanciaDeMerodeo: 16
@@ -17040,7 +17039,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 6
+  m_Speed: 26
   m_Acceleration: 600
   avoidancePriority: 50
   m_AngularSpeed: 1200

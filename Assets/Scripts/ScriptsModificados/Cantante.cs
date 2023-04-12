@@ -28,8 +28,6 @@ public class Cantante : MonoBehaviour
     public double anguloVistaHorizontal;
     // Distancia maxima de vision
     public double distanciaVista;
-    // Objetivo al que ver"
-    public Transform objetivo;
 
     // Segundos que puede estar merodeando
     public double tiempoDeMerodeo;
@@ -43,14 +41,12 @@ public class Cantante : MonoBehaviour
 
     // Componente cacheado NavMeshAgent
     public NavMeshAgent agente;
-  
+
     // La blackboard
     public GameBlackboard bb;
 
     //para seguir al fantasma o al vizconde
     public Transform fantasma, vizconde;
-    //si esta siguiendo a alguien para actualizar el objetivo
-    bool persiguiendo = false;
     Transform objetivoPerseguir;
 
     //para tiempo descanso actual
@@ -59,7 +55,7 @@ public class Cantante : MonoBehaviour
     //guarda la sala donde se encuentra
     GameObject salaActual;
 
-    
+
     public void Start()
     {
         agente.updateRotation = false;
@@ -68,11 +64,11 @@ public class Cantante : MonoBehaviour
     public void LateUpdate()
     {
         //si esta persiguiendo a alguien actualzia la posicion donde se encuentra este
-        if (persiguiendo)
+        if (capturada)
         {
-            transform.position = objetivoPerseguir.position - objetivo.forward.normalized;
+            transform.position = objetivoPerseguir.position - objetivoPerseguir.forward.normalized;
         }
-            
+
 
         if (agente.velocity.sqrMagnitude > Mathf.Epsilon)
         {
@@ -135,7 +131,7 @@ public class Cantante : MonoBehaviour
         if (Vector3.Angle(transform.forward, dir) < ang / 2)
             return false;
         //o hay obstaculos entre medias, reducimos la distancia para que ignore la colision con el vizconde
-        if (Physics.Raycast(transform.position, dir, dist -0.5f))
+        if (Physics.Raycast(transform.position, dir, dist - 0.5f))
             return false;
         //en caso contrario si que lo esta viendo
         return true;
@@ -159,12 +155,9 @@ public class Cantante : MonoBehaviour
     public void IntentaMerodear()
     {
         //si estaba opersiguiendo a alguien se detiene
-        if (persiguiendo)
-        {
-            persiguiendo = false;
-            agente.enabled = true;
-        }
-           
+        if (capturada)
+            finCaptura();
+
 
         //si cumple su espacio de tiempo se desplaza hacia su nueva posicion objetivo
         if (tiempoDeMerodeo + tiempoComienzoMerodeo <= Time.timeSinceLevelLoad)
@@ -172,34 +165,46 @@ public class Cantante : MonoBehaviour
             tiempoComienzoMerodeo = Time.timeSinceLevelLoad;
             nuevoObjetivo(RandomNavmeshPosition(distanciaDeMerodeo));
         }
-       
+
     }
     public bool GetCapturada()
     {
         return capturada;
     }
 
-    public void setCapturada(bool cap, bool porFantasma)
+    public void setCapturada(bool cap, bool porFantasma = false)
     {
         capturadaPorFantasma = porFantasma;
         capturada = cap;
+
+        if (capturada)
+        {
+            if (capturadaPorFantasma)
+                sigueFantasma();
+            else
+                sigueVizconde();
+        }
+
+        else
+            finCaptura();
+
     }
 
-    public void sigueFantasma()
+    void sigueFantasma()
     {
-        comenzarAPerseguir();
+        agente.enabled = false;
         objetivoPerseguir = fantasma;
     }
 
-    public void sigueVizconde()
+    void sigueVizconde()
     {
-        comenzarAPerseguir();
+        agente.enabled = false;
         objetivoPerseguir = vizconde;
     }
     public void irAlEscenario()
     {
-        if (persiguiendo)
-            dejarDePerseguir();
+        if (capturada)
+            finCaptura();
 
         agente.SetDestination(bb.stage.transform.position);
     }
@@ -214,19 +219,14 @@ public class Cantante : MonoBehaviour
     {
         agente.SetDestination(obj);
     }
-    
-    public void dejarDePerseguir()
+
+    public void finCaptura()
     {
-        persiguiendo = false;
+        capturada = false;
         agente.enabled = true;
         agente.Warp(transform.position);
     }
-
-    private void comenzarAPerseguir()
-    {
-        persiguiendo = true;
-        agente.enabled = false;
-    }
+   
 
     private void OnCollisionEnter(Collision collision)
     {

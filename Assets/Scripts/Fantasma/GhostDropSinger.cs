@@ -3,9 +3,6 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
 
-/*
- * Accion de ir tirar una de las lamparas
- */
 
 public class GhostDropSinger : Action
 {
@@ -25,9 +22,9 @@ public class GhostDropSinger : Action
         {
             return TaskStatus.Failure;
         }
-
+        
         agent.SetDestination(transform.position);
-        singer.GetComponent<Cantante>().dejarDePerseguir();
+        singer.GetComponent<Cantante>().setCapturada(false);
 
         return TaskStatus.Success;
 
