@@ -32,25 +32,22 @@ public class GhostLlevarCantante : Action
         var bb = GameBlackboard.blackBoard;
 
 
-        sotanoNorte = bb.celda;
+        sotanoNorte = bb.basement;
         cantante = bb.singer;
     }
 
     public override void OnStart()
     {
         cantante.GetComponent<Cantante>().setCapturada(true, true);
-        agent.SetDestination(sotanoNorte.transform.position);
+       
     }
 
     public override TaskStatus OnUpdate()
     {
-     
-        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(sotanoNorte.transform.position.x, sotanoNorte.transform.position.z)) < 1.2f && agent.pathStatus == NavMeshPathStatus.PathComplete)
-        {
-            cantante.GetComponent<Cantante>().setCapturada(false);
-
+        agent.SetDestination(sotanoNorte.transform.position);
+        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(sotanoNorte.transform.position.x, sotanoNorte.transform.position.z)) < 1.2f 
+            && agent.pathStatus == NavMeshPathStatus.PathComplete)
             return TaskStatus.Success;
-        }
         else return TaskStatus.Running;
 
     }
