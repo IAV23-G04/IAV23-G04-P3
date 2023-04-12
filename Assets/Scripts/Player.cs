@@ -88,6 +88,13 @@ public class Player : MonoBehaviour
             areaCaptura.SetActive(true);
             anim.SetBool("Usable", true);
         }
+        if (Input.GetKeyDown(KeyCode.T) && ultimaAccion <= 0)
+        {
+            cantantePruebas.GetComponent<Cantante>().setCapturada(false);
+            ultimaAccion = tiempoEsperaAccion;
+            areaCaptura.SetActive(true);
+            anim.SetBool("Usable", true);
+        }
         else if (ultimaAccion > 0)
         {
             ultimaAccion -= Time.deltaTime;
