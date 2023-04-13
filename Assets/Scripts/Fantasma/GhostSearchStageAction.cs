@@ -13,12 +13,12 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
 
-/*
- * Accion de ir al escenario, cuando llega devuelve Success
- */
-
+/// <summary>
+/// Accion de dirigirse a una sala
+/// </summary>
 public class GhostSearchStageAction : Action
 {
+    //se tiene variables del agente y la sala en cuestion
     NavMeshAgent agent;
     GameObject stage;
 
@@ -28,11 +28,12 @@ public class GhostSearchStageAction : Action
         stage = GameBlackboard.blackBoard.stage;
     }
 
+    //al comenzar se dirige al agente a ella
     public override void OnStart()
     {
         agent.SetDestination(stage.transform.position);
     }
-
+    //si completa la ruta marcada devuelve success
     public override TaskStatus OnUpdate()
     {
      

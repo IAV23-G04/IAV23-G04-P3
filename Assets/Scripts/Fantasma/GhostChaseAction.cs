@@ -13,9 +13,9 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
 
-/*
- * Accion de seguir a la cantante, cuando la alcanza devuelve Success
- */
+/// <summary>
+/// Accion para perseguir a la cantante
+/// </summary>
 
 public class GhostChaseAction : Action
 {
@@ -29,6 +29,8 @@ public class GhostChaseAction : Action
 
     }
 
+    //mientras se ejecuta la accion se dirige al agente a la cantante; una vez esta lo suficientemente cerca para capturarla
+    //devuelve success
     public override TaskStatus OnUpdate()
     {
 

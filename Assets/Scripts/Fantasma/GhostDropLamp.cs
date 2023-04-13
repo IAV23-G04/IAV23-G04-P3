@@ -3,21 +3,21 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
 
-/*
- * Accion de ir tirar una de las lamparas
- */
-
+/// <summary>
+/// Accion de accudir secuencialmente a las lamparas y tirarla
+/// </summary>
 public class GhostDropLamp : Action
 {
+    //variables necesarias: agente, y control d elas palancas
     NavMeshAgent agentGhost;
     GameBlackboard blackboard;
 
     ControlPalanca palancaI;
     ControlPalanca palancaD;
 
-
-   bool pI;
-   bool pD;
+    //booleanos para controlar que palanca esta caida
+    bool pI;
+    bool pD;
 
     public override void OnAwake()
     {
@@ -28,30 +28,33 @@ public class GhostDropLamp : Action
         palancaD = blackboard.eastLever.GetComponentInChildren<ControlPalanca>();
     }
 
-  
+
     public override TaskStatus OnUpdate()
     {
+        //si el agente no esta activado no hace nada
         if (!agentGhost.enabled)
             return TaskStatus.Running;
 
-            pD = palancaD.caido;
+        //en caso contrario obtiene si las palancas han caido
+        pD = palancaD.caido;
         pI = palancaI.caido;
 
         Vector3 newPosition;
 
-
+        //si ninguna esta caida se dirige a la palanca mas cercana
         if (!pI && !pD)
         {
             if ((palancaI.transform.position - agentGhost.transform.position).magnitude >
                 (palancaD.transform.position - agentGhost.transform.position).magnitude)
             {
-                newPosition =  palancaD.transform.position;
+                newPosition = palancaD.transform.position;
             }
             else
             {
                 newPosition = palancaI.transform.position;
             }
         }
+        //si no a la que falte por activarla
         else if (!pI)
         {
             newPosition = palancaI.transform.position;
@@ -59,11 +62,11 @@ public class GhostDropLamp : Action
         else newPosition = palancaD.transform.position;
 
 
-       
+        //y se dirige a la posicion correspondiente
         agentGhost.SetDestination(newPosition);
 
-       
-        if(pD && pI)
+        //una vez esten ambas palancas bajadas devuelve success
+        if (pD && pI)
         {
             return TaskStatus.Success;
         }

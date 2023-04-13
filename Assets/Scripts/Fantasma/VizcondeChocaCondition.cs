@@ -13,13 +13,12 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
 
-/*
- * Devuelve Success cuando el vizconde choca con el fantasma
- */
-
-
+/// <summary>
+/// Condicion de si se choca con el vizconde
+/// </summary>
 public class VizcondeChocaCondition : Conditional
 {
+    //var necesarias, distancia para choque vizconde y agente
     Player vizconde;
     NavMeshAgent agent;
 
@@ -33,6 +32,7 @@ public class VizcondeChocaCondition : Conditional
 
     }
 
+    //si se alcanza colision se detiene al agente y se devuelve success, en caso contrario se devuelve failure
     public override TaskStatus OnUpdate()
     {
 

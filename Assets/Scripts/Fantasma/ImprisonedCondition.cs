@@ -12,9 +12,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 
-/*
- * Condicion de si la cantante esta encarcelada
- */
+/// <summary>
+/// Condicion de si la cantante esta encerrads
+/// </summary>
 
 public class ImprisonedCondition : Conditional
 {
@@ -25,6 +25,7 @@ public class ImprisonedCondition : Conditional
         blackboard = GameBlackboard.blackBoard;
     }
 
+    //mediante la variable del blackboard correspondiente
     public override TaskStatus OnUpdate()
     {
         if (blackboard.imprisoned)

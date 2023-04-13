@@ -13,13 +13,12 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
 
-/*
- * Accion de seguir a la cantante, cuando la alcanza devuelve Success
- */
-
+/// <summary>
+/// Accion para detener al fantasma
+/// </summary>
 public class GhostStop : Action
 {
-
+    //mediante el agente
     NavMeshAgent agent;
     public override void OnAwake()
     {

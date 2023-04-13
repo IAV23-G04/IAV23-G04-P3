@@ -13,10 +13,9 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 
 
-/*
- * Devuelve Success cuando la cantante es sobre el palco
- */
-
+/// <summary>
+/// Condicional para saber si la cantante esta cantando en el momento obteniendo una referencia a su script
+/// </summary>
 
 public class CantanteCondition : Conditional
 {

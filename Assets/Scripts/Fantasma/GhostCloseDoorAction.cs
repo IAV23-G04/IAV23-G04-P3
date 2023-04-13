@@ -12,13 +12,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
-/*
- * Accion de cerrar la puerta de la celda, yendo hacia la palanca, cuando la alcanza devuelve Success
- */
+/// <summary>
+/// Accion para que el fantasma cierre la puerta
+/// </summary>
 
 public class GhostCloseDoorAction : Action
 {
+    //variables necesarias, agente del fantasma y ubicacion de la puerta
     NavMeshAgent agent;
     GameBlackboard blackboard;
     GameObject puerta;
@@ -30,6 +32,8 @@ public class GhostCloseDoorAction : Action
         puerta = blackboard.puerta;
     }
 
+    //mientras se ejecuta la accion se dirige al agente a la puerta; una vez esta lo suficientemente cerca para activarla
+    //devuelve success
     public override TaskStatus OnUpdate()
     {
         agent.SetDestination(puerta.transform.position);
