@@ -24,7 +24,7 @@ public class GhostImprisionSinger : Action
 
     NavMeshAgent agent;
     GameObject jail;
-    GameObject singer;
+    Cantante singer;
 
     bool going = false;
 
@@ -33,7 +33,7 @@ public class GhostImprisionSinger : Action
         bb = GameBlackboard.blackBoard;
 
         agent = GetComponent<NavMeshAgent>();
-        singer = bb.singer;
+        singer = bb.singer.GetComponent<Cantante>();
         jail = bb.celda;
     }
 
@@ -53,7 +53,11 @@ public class GhostImprisionSinger : Action
             bb.imprisoned = true;
             agent.SetDestination(transform.position);
 
-            singer.GetComponent<Cantante>().setCapturada(false);
+            singer.setCapturada(false);
+            singer.enPrision();
+            singer.transform.position = transform.position + transform.forward * 2;
+
+            going = false;
             return TaskStatus.Success;
         }
            

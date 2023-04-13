@@ -30,8 +30,8 @@ public class GhostReturnAction : Action
 
     public override TaskStatus OnUpdate()
     {
-
-        agent.SetDestination(musicRoom.transform.position);
+        if (agent.enabled)
+            agent.SetDestination(musicRoom.transform.position);
         return TaskStatus.Success;
     }
 }

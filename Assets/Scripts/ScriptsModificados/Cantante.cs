@@ -24,6 +24,8 @@ public class Cantante : MonoBehaviour
     public bool capturada = false;
     //si esta persiguiendo a alguien
     bool persiguiendo = false;
+    //si esta en la celda
+    bool inJail = true;
 
     [Range(0, 180)]
     // Angulo de vision en horizontal
@@ -58,11 +60,14 @@ public class Cantante : MonoBehaviour
     GameObject salaActual;
 
     float offset;
-    Vector3 objetivoDesplazamiento;
+
+    AudioSource cancion;
     public void Start()
     {
         agente.updateRotation = false;
         offset = transform.position.y - bb.stage.transform.position.y;
+
+        cancion = GetComponent<AudioSource>();
     }
 
     public void LateUpdate()
@@ -70,10 +75,10 @@ public class Cantante : MonoBehaviour
         //si esta persiguiendo a alguien actualzia la posicion donde se encuentra este
         if (capturada)
         {
-            transform.position = objetivoPerseguir.position - objetivoPerseguir.forward.normalized;
+            transform.position = objetivoPerseguir.position - objetivoPerseguir.forward.normalized * 1.5f;
         }
 
-        if(persiguiendo)
+        if (persiguiendo && !inJail)
         {
             agente.SetDestination(objetivoPerseguir.position);
         }
@@ -91,9 +96,11 @@ public class Cantante : MonoBehaviour
 
         tiempoComienzoCanto = Time.timeSinceLevelLoad;
 
-        transform.rotation = Quaternion.LookRotation(new Vector3(bb.patioButacas.transform.position.x, 
+        transform.rotation = Quaternion.LookRotation(new Vector3(bb.patioButacas.transform.position.x,
             transform.position.y, bb.patioButacas.transform.position.z));
         cantando = true;
+
+        cancion.Play();
     }
 
     // Comprueba si tiene que dejar de cantar
@@ -106,6 +113,7 @@ public class Cantante : MonoBehaviour
     public void Descansar()
     {
         cantando = false;
+        cancion.Stop();
 
         tiempoDeDescanso = Random.Range((float)tiempoDeDescansoMin, (float)tiempoDeDescescansoMax);
         tiempoComienzoDescanso = Time.timeSinceLevelLoad;
@@ -149,6 +157,7 @@ public class Cantante : MonoBehaviour
         if (Physics.Raycast(transform.position, dir, dist - 0.5f))
             return false;
         //en caso contrario si que lo esta viendo
+        if (inJail) inJail = false;
         return true;
     }
 
@@ -157,7 +166,7 @@ public class Cantante : MonoBehaviour
     {
         Vector3 randomPos;
         NavMeshHit navMeshHit;
-       
+
         do
         {
             randomPos = Random.insideUnitSphere * distance + transform.position;
@@ -178,15 +187,16 @@ public class Cantante : MonoBehaviour
         //si cumple su espacio de tiempo se desplaza hacia su nueva posicion objetivo
         if (tiempoDeMerodeo + tiempoComienzoMerodeo <= Time.timeSinceLevelLoad)
         {
-            NavMeshHit navMeshHit;
-            NavMesh.SamplePosition(transform.position, out navMeshHit, 100, NavMesh.AllAreas);
+            //NavMeshHit navMeshHit;
+            //NavMesh.SamplePosition(transform.position, out navMeshHit, 100, NavMesh.AllAreas);
 
-            transform.position = navMeshHit.position + Vector3.up * offset;
-            agente.Warp(navMeshHit.position + Vector3.up * offset);
+            //transform.position = navMeshHit.position + Vector3.up * offset;
+            //agente.Warp(navMeshHit.position + Vector3.up * offset);
 
             tiempoComienzoMerodeo = Time.timeSinceLevelLoad;
 
-            nuevoObjetivo(bb.getRandomSitio().transform.position);
+            if (agente.enabled)
+                nuevoObjetivo(bb.getRandomSitio().transform.position);
 
             //movimiento aleatorio basado en proximidad
             //nuevoObjetivo(RandomNavmeshPosition(distanciaDeMerodeo));
@@ -207,8 +217,8 @@ public class Cantante : MonoBehaviour
 
         if (capturada)
         {
-            Debug.Log("cantanteCapturada");
             cantando = false;
+            cancion.Stop();
 
             if (capturadaPorFantasma)
                 sigueFantasma();
@@ -229,6 +239,7 @@ public class Cantante : MonoBehaviour
 
     void sigueVizconde()
     {
+        if (inJail) inJail = false;
         agente.enabled = false;
         objetivoPerseguir = vizconde;
     }
@@ -262,6 +273,17 @@ public class Cantante : MonoBehaviour
     public void finCaptura()
     {
         capturada = false;
+        Invoke("reactivarMovimiento", 1f);
+    }
+
+    public void enPrision()
+    {
+        inJail = true;
+    }
+
+    void reactivarMovimiento()
+    {
+
         agente.enabled = true;
         agente.Warp(transform.position);
     }
@@ -272,5 +294,5 @@ public class Cantante : MonoBehaviour
         {
             salaActual = other.gameObject;
         }
-    } 
+    }
 }

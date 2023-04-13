@@ -39,13 +39,14 @@ public class GhostLlevarCantante : Action
     public override void OnStart()
     {
         cantante.GetComponent<Cantante>().setCapturada(true, true);
-       
+
     }
 
     public override TaskStatus OnUpdate()
     {
-        agent.SetDestination(sotanoNorte.transform.position);
-        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(sotanoNorte.transform.position.x, sotanoNorte.transform.position.z)) < 1.2f 
+        if (agent.enabled)
+            agent.SetDestination(sotanoNorte.transform.position);
+        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(sotanoNorte.transform.position.x, sotanoNorte.transform.position.z)) < 1.2f
             && agent.pathStatus == NavMeshPathStatus.PathComplete)
             return TaskStatus.Success;
         else return TaskStatus.Running;
