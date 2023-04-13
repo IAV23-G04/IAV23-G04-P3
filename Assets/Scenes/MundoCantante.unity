@@ -11856,6 +11856,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_Chost
       objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: 93f175331b13808429d4b085140d308c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: 93f175331b13808429d4b085140d308c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -17006,6 +17010,8 @@ GameObject:
   - component: {fileID: 2536986899609911513}
   - component: {fileID: 2536986899609911508}
   - component: {fileID: 2536986899609911517}
+  - component: {fileID: 2536986899609911520}
+  - component: {fileID: 2536986899609911521}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Ghost
@@ -17013,6 +17019,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &2536986899609911520
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536986899609911519}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: -1.25, z: -0.00000008940697}
+--- !u!114 &2536986899609911521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536986899609911519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc19c5b6e560e2419d49983da882355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cantante: {fileID: 373871681117018882}
+  salaActual: {fileID: 0}
 --- !u!1001 &2854911446422225760
 PrefabInstance:
   m_ObjectHideFlags: 0
