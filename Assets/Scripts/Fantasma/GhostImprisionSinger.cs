@@ -13,19 +13,18 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
 
-/*
- * Accion de seguir a la cantante, cuando la alcanza devuelve Success
- */
-
+/// <summary>
+/// Accion de encerrar a la cantante en la celda
+/// </summary>
 public class GhostImprisionSinger : Action
 {
-
+    //variables necesarias como el agente, la celda, la cantante
     GameBlackboard bb;
 
     NavMeshAgent agent;
     GameObject jail;
     Cantante singer;
-
+    //booleano para saber si esta en camino
     bool going = false;
 
     public override void OnAwake()
@@ -39,24 +38,24 @@ public class GhostImprisionSinger : Action
 
     public override TaskStatus OnUpdate()
     {
-
+        //si no esta en camino se da el destino de la celda 
         if(!going)
         {
             agent.SetDestination(jail.transform.position);
             going = true;
         }
        
-
+        //si esta lo suficientemente cerca d ela celda
         if (Vector3.Distance(transform.position, jail.transform.position) < 1.3f)
         {
-
+            //se detiene al agente y actualzian variables de estado
             bb.imprisoned = true;
             agent.SetDestination(transform.position);
-
+            //se llamana a los metodos de la cantante pertinentes al encierro y se reubica
             singer.setCapturada(false);
             singer.enPrision();
             singer.transform.position = transform.position + transform.forward * 2;
-
+            //se reinciia a la situacion inicial y se devuelve success
             going = false;
             return TaskStatus.Success;
         }

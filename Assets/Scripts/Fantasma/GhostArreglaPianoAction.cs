@@ -13,9 +13,12 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
 
-
+/// <summary>
+/// Accion para que el fantasma arregle el piano si es pertinente
+/// </summary>
 public class GhostArreglaPianoAction : Action
 {
+    //variables del piano y el agente del fantasma necesarias para la implementacion
     ControlPiano pianoControl;
     GameObject piano;
     NavMeshAgent agent;
@@ -28,7 +31,7 @@ public class GhostArreglaPianoAction : Action
     }
 
     
-
+    //mientras se ejecuta la accion se dirige al agente al piano; una vez esta cerca y si el piano esta roto lo arregla; devolviendo success
     public override TaskStatus OnUpdate()
     {
         agent.SetDestination(piano.transform.position);

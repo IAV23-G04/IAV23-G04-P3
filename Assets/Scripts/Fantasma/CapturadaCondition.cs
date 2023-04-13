@@ -12,9 +12,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 
-/*
- * Condicion de si la cantante esta encarcelada
- */
+
+/// <summary>
+/// Condicional para saber si la cantante esta capturada por el fantasma
+/// mediante referencia a su clase obtenida a traves del blackboard
+/// </summary>
 
 public class CapturadaCondition : Conditional
 {

@@ -12,8 +12,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Condicio para saber si el publico se encuentra presente
+/// </summary>
 public class PublicoCondition : Conditional
 {
+    //variables para lectura y referencias a las palancas
     GameBlackboard blackboard;
 
     bool publicoWest;
@@ -28,6 +32,7 @@ public class PublicoCondition : Conditional
         palancaWest = GameBlackboard.blackBoard.westLever.GetComponentInChildren<ControlPalanca>();
     }
 
+    //si alguna de ambas no etsa caida se devuelve success, caso contrario failure
     public override TaskStatus OnUpdate()
     {
 

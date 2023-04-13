@@ -12,6 +12,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Condicion para saber si el piano esta roto
+/// </summary>
 public class PianoCondition : Conditional
 {
     ControlPiano piano;
@@ -21,6 +24,7 @@ public class PianoCondition : Conditional
         piano = GameBlackboard.blackBoard.piano.GetComponent<ControlPiano>();
     }
 
+    //devuelve la informacion de la variable de control del piano
     public override TaskStatus OnUpdate()
     {
         if (piano.roto)

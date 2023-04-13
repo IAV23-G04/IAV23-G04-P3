@@ -13,7 +13,7 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 
 /*
- * Condicion de si la cantante esta encarcelada
+ * Condicion de si la puerta esta cerrada
  */
 
 public class JailCondition : Conditional
@@ -25,6 +25,7 @@ public class JailCondition : Conditional
         blackboard = GameBlackboard.blackBoard;
     }
 
+    //se obtiene mediante la variable de control del blackboard
     public override TaskStatus OnUpdate()
     {
         if (blackboard.gate)

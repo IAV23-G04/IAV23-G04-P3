@@ -13,12 +13,12 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine.AI;
 
-/*
- * Accion de ir a la sala de musica, cuando llega devuelve Success
- */
-
+/// <summary>
+/// Accion de volver a la sala de musica
+/// </summary>
 public class GhostReturnAction : Action
 {
+    //variables necesarias: agente y ubicacion de la sala
     NavMeshAgent agent;
     GameObject musicRoom;
 
@@ -28,6 +28,7 @@ public class GhostReturnAction : Action
         agent = GetComponent<NavMeshAgent>();
     }
 
+    //mientras se ejecuta la accion se dirige a sala de musica y se devuelve success
     public override TaskStatus OnUpdate()
     {
         if (agent.enabled)

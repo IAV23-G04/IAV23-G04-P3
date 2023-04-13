@@ -12,6 +12,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Condicional para comprobar si el piano esta roto mediante el blackboard
+/// </summary>
 public class BrokenPianoCondition : Conditional
 {
     ControlPiano piano;
