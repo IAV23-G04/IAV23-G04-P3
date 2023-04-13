@@ -329,9 +329,12 @@ Además el fantasma contará con con un sistema de gestión sensorial para reacc
 
 Aquí se podrán los diferentes videos de las pruebas y partes del proyecto para ir documentando su funcionalidad:
 
+https://www.youtube.com/watch?v=3eHNKkgKhog&ab_channel=AntonioPovedano
+
 ## Ampliaciones
 
-    Pondremos las modificaciones externas a la práctica cuando estas sean realizadas
+    - El fantasma se vuelve invisible al pasar por delante del publico
+    - Sonido al cantar y tocar el piano actualizados
 
 ## Producción
 
@@ -341,10 +344,15 @@ Las tareas se han realizado y el esfuerzo ha sido repartido entre los autores.
 |:-:|:--|:-:|
 | ✔ | Readme explicacion de clases y explicación del escenario | Raul |
 | ✔ | Readme explicacion de clases y propuesta | Antonio |
-| OPCIONAL|
+| ✔ | Máquina de estado de la cantante | Raul |
+| ✔ | Comportamiento publico | Raul |
+| ✔ | Arbol de comportamiento fantasma | Antonio |
+| ✔ | Acciones del vizconde | Antonio |
+| ✔ | Comentar codigo | Raul |
+| ✔ | Realizacion del video de pruebas | Antonio |
+| ✔ | Correccion de fallos | Antonio y Raul |
 
 Todo se ha hecho junto ya que residimos en la misma vivienda
-
 
 ## Referencias
 
