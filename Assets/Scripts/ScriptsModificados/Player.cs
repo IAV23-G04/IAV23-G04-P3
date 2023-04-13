@@ -14,6 +14,7 @@ using UnityEngine.AI;
 
 /*
  * Clase que se encarga de controlar las acciones del jugador
+ * y sus intercciones con la cantante, fantasma y mapa
  */
 
 public class Player : MonoBehaviour
@@ -31,6 +32,8 @@ public class Player : MonoBehaviour
 
     public GameObject cantantePruebas;
     Cantante cantante;
+
+    //variables iniciales para controlar al jugador
     void Start()
     {
         tiempoAtaqueActivo = tiempoEsperaAtaque / 2;
@@ -39,6 +42,8 @@ public class Player : MonoBehaviour
         cantante = cantantePruebas.GetComponent<Cantante>();
     }
 
+    //se mantienen los ajustes de la implementacion inicial y solo se 
+    //han modificado el acceso a algunas variables para reducir costes
     void Update()
     {
         //desactivamos la animacion para que solo la haga una vez

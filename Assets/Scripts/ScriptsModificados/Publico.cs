@@ -21,7 +21,7 @@ public class Publico : MonoBehaviour
     BoxCollider lobbyZone;
     private void Start()
     {
-        //lucesEncendidas = 2;
+        //obtenemos referencia de las variables que necesitemos 
         agent = GetComponent<NavMeshAgent>();
         sentado = true;
         posStage = transform.position;
@@ -35,15 +35,17 @@ public class Publico : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(GetComponent<NavMeshAgent>().velocity.normalized);
         }
-        else if(miLuzEncendida)  //para que al llegar a su butaca miren hacia delante(el escenario)
+        //para que al llegar a su butaca miren hacia delante(el escenario)
+        else if (miLuzEncendida)  
             transform.rotation = new Quaternion(0, 0, 0, 0);
     }
 
+    //saber si la luz esta encendida
     public bool getLuces()
     {
         return sentado;
     }
-
+    //método para apagar la luz y que el publico se desplace a su ubicacion pertinenente
     public void apagaLuz()
     {
         miLuzEncendida = false;
@@ -52,7 +54,7 @@ public class Publico : MonoBehaviour
         //lucesEncendidas--;
         //sentado = lucesEncendidas == 2;
     }
-    //se llama cuando el fantasma o el vizconde desactivan o activan las luces
+    //método para ecender la luz y que el publico se desplace a su ubicacion pertinenente
     public void enciendeLuz()
     {
         agent.SetDestination(posStage);
@@ -62,6 +64,7 @@ public class Publico : MonoBehaviour
         //sentado = lucesEncendidas == 2;
     }
 
+    //obtiene una posicion aleatoria en la que ubicarse cuando se asustan
     Vector3 GetRandomPosInLobby()
     {
         return lobbyZone.transform.position + new Vector3(Random.Range(-lobbyZone.size.x / 3, lobbyZone.size.x / 3), transform.position.y, Random.Range(-lobbyZone.size.z / 3, lobbyZone.size.z / 3));
